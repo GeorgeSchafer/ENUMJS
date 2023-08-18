@@ -1,6 +1,7 @@
 // require syntax
 // DO NOT work on this file directly. Make changes in the export.js file, then copy them over
 
+console.log('shell script test')
 
 class ENUM {
     constructor() {
