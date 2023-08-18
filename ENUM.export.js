@@ -1,4 +1,4 @@
-// export syntax
+// Import syntax
 // make changes to this file, then copy them over to the *.module.exports.js file
 
 
