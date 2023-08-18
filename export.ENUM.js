@@ -1,5 +1,7 @@
+// module.exports
 
-class ENUM {
+
+export class ENUM {
     constructor() {
         this.types = []
     }
@@ -10,7 +12,7 @@ class ENUM {
 
 }
 
-class Type {
+export class Type {
 
     constructor( obj ){ // objType = { type: boolean } || { property }
         this.type = obj.property;
@@ -24,5 +26,4 @@ class Type {
 
 }
 
-module.exports = ENUM;
-module.exports = Type;
+export { ENUM, Type}
