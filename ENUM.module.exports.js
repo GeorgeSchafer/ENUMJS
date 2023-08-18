@@ -1,4 +1,5 @@
-// module.exports
+// module.exports syntax
+// DO NOT work on this file directly. Make changes in the export.js file, then copy them over
 
 
 class ENUM {

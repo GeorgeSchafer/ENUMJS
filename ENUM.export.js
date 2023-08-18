@@ -1,4 +1,5 @@
-// module.exports
+// export syntax
+// make changes to this file, then copy them over to the *.module.exports.js file
 
 
 export class ENUM {
@@ -25,5 +26,3 @@ export class Type {
     }
 
 }
-
-export { ENUM, Type}
