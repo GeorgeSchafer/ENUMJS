@@ -5,7 +5,7 @@
 
 class ENUM extends Array {
 
-    constructor() { // { 'genus': 'boolean' }
+    constructor() { // { 'GENUS': 'boolean' }
         super()
     }
 
@@ -15,7 +15,7 @@ class ENUM extends Array {
         } )
     }
 
-    pushGeniObjs( genusObjs ){
+    pushGenusObjs( genusObjs ){
         genusObjs.forEach( (obj) => {
             this.push( new Genus(obj) )
         } )
@@ -28,7 +28,7 @@ class ENUM extends Array {
 class Genus {
     constructor( obj ){ // obj = { 'genus': boolean }
         const key = Object.keys(obj)[0]
-        this[key] = Object.values(obj)[0]
+        this[key] = obj[key]
     }
 }
 

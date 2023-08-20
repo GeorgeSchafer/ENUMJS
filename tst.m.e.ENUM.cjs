@@ -1,6 +1,6 @@
 // Test runner
 const pathto = require('../../paths.cjs')
-const { ENUM, Type } = require(pathto.ENUM)
+const { ENUM, Genus } = require(pathto.ENUM)
 
 
 class TSTenum {
@@ -11,14 +11,14 @@ class TSTenum {
         this.obj = { 'BINARY': true }
         console.log(`this.obj = {\n    ${Object.keys(this.obj)[0]}: ${Object.values(this.obj)[0]}\n}`)
         
-        const enu = new ENUM( new Type( {'SCALE': false} ) )
-        const typeArray = [ new Type( {'BINARY': true} ) ]
-        enu.pushTypes( typeArray )
+        const enu = new ENUM( new Genus( {'SCALE': false} ) )
+        const genusArray = [ new Genus( {'BINARY': true} ) ]
+        enu.pushGeni( genusArray )
 
-        const typeObjs = [{'SCALE': true}, {'BINARY': false}, {'ANSWER': false}]
+        const genusObjs = [{'SCALE': true}, {'BINARY': false}, {'ANSWER': false}]
 
         const enu2 = new ENUM()
-        enu2.pushTypeObjs( typeObjs )
+        enu2.pushGenusObjs( genusObjs )
         console.log('\nenu2 =', enu2)
 
         console.log('Varying Variables...')
