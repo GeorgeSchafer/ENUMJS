@@ -5,7 +5,7 @@
 
 class ENUM extends Array {
 
-    constructor( typeObj ) { // { 'TYPE': BOOLEAN }
+    constructor( typeObj ) { // { 'TYPE': 'boolean' }
         super().push(typeObj)
     }
 
@@ -19,9 +19,9 @@ class ENUM extends Array {
 
 
 class Type {
-    constructor( obj ){ // obj = { 'TYPE': BOOLEAN }
-        const key = Object.keys(obj)
-        this[key] = Object.values(obj)
+    constructor( obj ){ // obj = { 'TYPE': boolean }
+        const key = Object.keys(obj)[0]
+        this[key] = Object.values(obj)[0]
     }
 }
 
