@@ -5,8 +5,8 @@
 
 class ENUM extends Array {
 
-    constructor( typeObj ) { // { 'TYPE': 'boolean' }
-        super().push(typeObj)
+    constructor() { // { 'TYPE': 'boolean' }
+        super()
     }
 
     pushTypes( typeArray ){
@@ -15,7 +15,14 @@ class ENUM extends Array {
         } )
     }
 
+    pushTypeObjs( typeObjs ){
+        typeObjs.forEach( (obj) => {
+            this.push( new Type(obj) )
+        } )
+    }
+
 }
+
 
 
 class Type {

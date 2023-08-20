@@ -5,21 +5,28 @@
 
 class ENUM extends Array {
 
-    constructor( typeObj ) { // { 'TYPE': 'boolean' }
-        super().push(typeObj)
+    constructor() { // { 'genus': 'boolean' }
+        super()
     }
 
-    pushTypes( typeArray ){
-        typeArray.forEach( (type) => {
-            this.push(type)
+    pushGeni( genusArray ){
+        genusArray.forEach( (genus) => {
+            this.push(genus)
+        } )
+    }
+
+    pushGeniObjs( genusObjs ){
+        genusObjs.forEach( (obj) => {
+            this.push( new Genus(obj) )
         } )
     }
 
 }
 
 
-class Type {
-    constructor( obj ){ // obj = { 'TYPE': boolean }
+
+class Genus {
+    constructor( obj ){ // obj = { 'genus': boolean }
         const key = Object.keys(obj)[0]
         this[key] = Object.values(obj)[0]
     }
@@ -29,5 +36,5 @@ class Type {
 
 module.exports = {
     ENUM,
-    Type
+    Genus
 }
