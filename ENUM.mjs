@@ -28,8 +28,10 @@ class ENUM extends Array {
 class Type {
     constructor( obj ){ // obj = { 'TYPE': boolean }
         const key = Object.keys(obj)[0]
-        this[key] = Object.values(obj)[0]
+        this[key] = obj[key]
     }
 }
+
+
 
 export { ENUM, Type }
