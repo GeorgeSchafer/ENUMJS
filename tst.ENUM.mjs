@@ -1,7 +1,7 @@
 // Test runner
 import { default as ENUM } from './ENUM.mjs'
 
-function ENUMtst(){
+function ENUMtest(){
     // tests here
     console.log('Test begins...')
 
@@ -16,7 +16,7 @@ function ENUMtst(){
 
     const enu2 = new ENUM()
     enu2.pushGenusObjs( genusObjs )
-    console.log('\nenu2 =', enu2)
+    console.log('enu2 =', enu2)
 
     console.log('Varying Variables...')
 

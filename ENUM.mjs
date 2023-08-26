@@ -34,4 +34,4 @@ class Type {
 
 
 
-export { ENUM, Type }
+export { ENUM as default, Type }
