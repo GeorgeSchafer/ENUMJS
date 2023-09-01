@@ -3,20 +3,16 @@ import { default as ENUM } from './ENUM.mjs'
 
 function ENUMtest(){
     // tests here
-    console.log('Test begins...')
+    console.log('Test begins...')    
+    console.log('ENUM class:', ENUM)
 
-    this.obj = { 'BINARY': true }
-    console.log(`this.obj = {\n    ${Object.keys(this.obj)[0]}: ${Object.values(this.obj)[0]}\n}`)
-    
-    const enu = new ENUM( new Genus( {'scale': false} ) )
-    const genusArray = [ new Genus( {'binary': true} ) ]
-    enu.pushGeni( genusArray )
+    const SIGN = new ENUM('positive')
 
-    const genusObjs = [{'scale': true}, {'binary': false}, {'answer': false}]
+    SIGN.addKey('negative')
+    console.log(SIGN)
 
-    const enu2 = new ENUM()
-    enu2.pushGenusObjs( genusObjs )
-    console.log('\nenu2 =', enu2)
+    SIGN.selectKey('negative')
+    console.log(SIGN)
 
     console.log('Varying Variables...')
 

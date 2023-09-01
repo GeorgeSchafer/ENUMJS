@@ -3,33 +3,33 @@
 
 
 
-class ENUM extends Array {
+export class ENUM {
 
-    constructor() { // { 'GENUS': 'boolean' }
-        super()
+    constructor( keyStr ) { // { 'genus': boolean }
+        this[keyStr] = true;
     }
 
-    pushGeni( genusArray ){
-        genusArray.forEach( (genus) => {
-            this.push(genus)
+    setKey( keyStr ){
+        this[keyStr] = false;
+    }
+
+    setKeys( keyStrArray ){
+        keyStrArray.forEach( (string) => {
+            this[string] = false;
         } )
     }
 
-    pushGenusObj( obj ){
-        this.push( new Genus(obj) )
-    }
+    selectKey( keyStr ){
+        const keys = Object.keys(this);
+
+        if(this[keyStr] === false || this[keyStr] === true){
+            keys.forEach( (key) => {
+                this[key] = false;
+            } )
+        } else {
+            throw new Error("InvalidKey Error: specified key is not present")
+        }
+
+        this[keyStr] = true;
 
 }
-
-
-
-class Type {
-    constructor( obj ){ // obj = { 'genus': boolean }
-        const key = Object.keys(obj)[0]
-        this[key] = obj[key]   
-    }
-}
-
-
-
-export { ENUM as default, Type }
