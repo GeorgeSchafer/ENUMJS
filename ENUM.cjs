@@ -3,33 +3,45 @@
 
 
 
-class ENUM extends Array {
+module.exports = class ENUM {
 
-    constructor() { // { 'GENUS': 'boolean' }
-        super()
+    constructor( keyStr, value ) { // { 'genus': boolean }
+        this[keyStr] = value;
     }
 
-    pushGeni( genusArray ){
-        genusArray.forEach( (genus) => {
-            this.push(genus)
+    addKey( keyStr ){
+        this[keyStr] = false;
+    }
+
+    addKeys( keyStrArray ){
+        keyStrArray.forEach( (string) => {
+            this[string] = false;
         } )
     }
 
-    pushGenusObj( obj ){
-        this.push( new Genus(obj) )
+    addKeyValue( keyStr, value ){
+        this[keyStr] = value;
     }
+
+    // pushGeni( genusArray ){
+    //     genusArray.forEach( (genus) => {
+    //         this.push(genus)
+    //     } )
+    // }
+
+    // pushGenusObj( obj ){
+    //     this.push( new Genus(obj) )
+    // }
 
 }
 
-
-
-// module.exports = 
-class Genus {
-    constructor( obj ){ // obj = { 'genus': boolean }
-        const key = Object.keys(obj)[0]
-        this[key] = obj[key]
+/** 
+* @todo determine if Genus is necessary
+*/
+// class Genus {
+//     constructor( obj ){ // obj = { 'genus': boolean }
+//         const key = Object.keys(obj)[0]
+//         this[key] = obj[key]
         
-    }
-}
-
-module.exports = {ENUM, Genus}
+//     }
+// }
