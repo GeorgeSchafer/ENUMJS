@@ -6,7 +6,12 @@ module.exports = () => {
     console.log('Test begins...')    
     console.log('ENUM class:', ENUM)
 
-    const SIGN = new ENUM('positive', true)
+    const SIGN = new ENUM('positive')
+
+    SIGN.addKey('negative')
+    console.log(SIGN)
+
+    SIGN.selectKey('negative')
     console.log(SIGN)
 
     console.log('Varying Variables...')

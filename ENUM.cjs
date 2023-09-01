@@ -5,22 +5,34 @@
 
 module.exports = class ENUM {
 
-    constructor( keyStr, value ) { // { 'genus': boolean }
-        this[keyStr] = value;
+    constructor( keyStr ) { // { 'genus': boolean }
+        this[keyStr] = true;
     }
 
-    addKey( keyStr ){
+    setKey( keyStr ){
         this[keyStr] = false;
     }
 
-    addKeys( keyStrArray ){
+    setKeys( keyStrArray ){
         keyStrArray.forEach( (string) => {
             this[string] = false;
         } )
     }
 
-    addKeyValue( keyStr, value ){
-        this[keyStr] = value;
+    selectKey( keyStr ){
+        const keys = Object.keys(this);
+
+        if(this[keyStr] === false || this[keyStr] === true){
+            keys.forEach( (key) => {
+                this[key] = false;
+            } )
+        } else {
+            throw new Error("InvalidKey Error: specified key is not present")
+        }
+
+        this[keyStr] = true;
+        
+        
     }
 
     // pushGeni( genusArray ){
