@@ -5,7 +5,7 @@
 
 module.exports = class ENUM {
 
-    constructor( keyStr ) { // { 'genus': boolean }
+    constructor( keyStr ) {
         this[keyStr] = true;
     }
 
@@ -35,25 +35,4 @@ module.exports = class ENUM {
         
     }
 
-    // pushGeni( genusArray ){
-    //     genusArray.forEach( (genus) => {
-    //         this.push(genus)
-    //     } )
-    // }
-
-    // pushGenusObj( obj ){
-    //     this.push( new Genus(obj) )
-    // }
-
 }
-
-/** 
-* @todo determine if Genus is necessary
-*/
-// class Genus {
-//     constructor( obj ){ // obj = { 'genus': boolean }
-//         const key = Object.keys(obj)[0]
-//         this[key] = obj[key]
-        
-//     }
-// }

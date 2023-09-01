@@ -8,7 +8,7 @@ module.exports = () => {
 
     const SIGN = new ENUM('positive')
 
-    SIGN.addKey('negative')
+    SIGN.setKey('negative')
     console.log(SIGN)
 
     SIGN.selectKey('negative')
