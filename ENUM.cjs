@@ -15,26 +15,21 @@ class ENUM extends Array {
         } )
     }
 
-    pushGenusObjs( genusObjs ){
-        genusObjs.forEach( (obj) => {
-            this.push( new Genus(obj) )
-        } )
+    pushGenusObj( obj ){
+        this.push( new Genus(obj) )
     }
 
 }
 
 
 
+// module.exports = 
 class Genus {
     constructor( obj ){ // obj = { 'genus': boolean }
         const key = Object.keys(obj)[0]
         this[key] = obj[key]
+        
     }
 }
 
-
-
-module.exports = {
-    ENUM,
-    Genus
-}
+module.exports = {ENUM, Genus}
