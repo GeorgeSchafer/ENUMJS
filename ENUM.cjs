@@ -35,4 +35,15 @@ module.exports = class ENUM {
         
     }
 
+    toString(){
+        let result;
+        const keys = Object.keys(this)
+
+        keys.forEach(key => {
+            result += `{ ${key}: ${this[key]} } `
+        })
+        
+        return result;
+    }
+
 }
