@@ -40,7 +40,7 @@ module.exports = class ENUM {
         const keys = Object.keys(this)
 
         keys.forEach(key => {
-            result += `{ ${key}: ${this[key]} } `
+            result += ` { ${key}: ${this[key]} } `
         })
         
         return result;
