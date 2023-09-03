@@ -3,7 +3,7 @@
 
 
 
-export class ENUM {
+export default class ENUM {
 
     constructor( keyStr ) { // { 'genus': boolean }
         this[keyStr] = true;
