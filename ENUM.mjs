@@ -22,15 +22,29 @@ export default class ENUM {
     selectKey( keyStr ){
         const keys = Object.keys(this);
 
-        if(this[keyStr] === false || this[keyStr] === true){
+        if(this[keyStr] != true && this[keyStr] != false){
+            throw new Error("InvalidKey Error: specified key is not present")
+        } else {
             keys.forEach( (key) => {
                 this[key] = false;
             } )
-        } else {
-            throw new Error("InvalidKey Error: specified key is not present")
+
+            this[keyStr] = true;
         }
 
-        this[keyStr] = true;
+        /** 
+        * @todo
+        *     Ensure the refactor above works to replace the old code below.
+        */
+        // if(this[keyStr] === false || this[keyStr] === true){
+        //     keys.forEach( (key) => {
+        //         this[key] = false;
+        //     } )
+        // } else {
+        //     throw new Error("InvalidKey Error: specified key is not present")
+        // }
+
+        
     }
 
     toString(){
