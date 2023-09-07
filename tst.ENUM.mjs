@@ -1,5 +1,5 @@
 // Test runner
-import { default as ENUM } from './ENUM.mjs'
+import { default as ENUM } from './ext_libs/ENUMJS/ENUM.mjs'
 
 function ENUMtest(){
     // tests here
