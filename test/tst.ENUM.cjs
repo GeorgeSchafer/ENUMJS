@@ -1,5 +1,5 @@
 // Test runner
-const ENUM = require('./ext_libs/ENUMJS/ENUM.cjs')
+const ENUM = require('../ext_libs/ENUMJS/ENUM.cjs')
 
 module.exports = () => {
     // tests here
