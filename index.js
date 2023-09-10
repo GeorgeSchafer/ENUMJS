@@ -1,5 +1,5 @@
 
-const test = require('./tst.ENUM.cjs')
+const test = require('./test/tst.ENUM.cjs')
 
 test()
 
