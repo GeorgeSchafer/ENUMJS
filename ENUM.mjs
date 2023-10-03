@@ -42,12 +42,12 @@ export default class ENUM {
 
         keys.forEach((key, index) => {
             if(index === 0){
-                result += `ENUM { \n    {${key}: ${this[key]}}, \n`;
+                result += `ENUM {\n    {${key}: ${this[key]}},\n`;
             } else if(index >= keys.length - 1){
-                result += `    {${key}: ${this[key]}} \n}`;
+                result += `    {${key}: ${this[key]}}\n}`;
                 return result;
             } else {
-                result += `    {${key}: ${this[key]}}, \n`;
+                result += `    {${key}: ${this[key]}},\n`;
             }
             
             index++;
