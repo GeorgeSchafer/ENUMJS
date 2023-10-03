@@ -1,5 +1,5 @@
 // require syntax
-// DO NOT work on this file directly. Make changes in the export.js file, then copy them over
+// DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
 
 
 

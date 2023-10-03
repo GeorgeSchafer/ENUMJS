@@ -5,7 +5,7 @@
 
 export default class ENUM {
 
-    constructor( keyStr ) { // { 'genus': boolean }
+    constructor( keyStr ) { 
         this[keyStr.toUpperCase()] = true;
     }
 
