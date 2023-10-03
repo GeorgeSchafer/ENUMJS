@@ -1,11 +1,10 @@
-./ext_libs/ENUMJS/.git
-./ext_libs/ENUMJS/.gitignore.template
-./ext_libs/ENUMJS/index.js
-./ext_libs/ENUMJS/tst.ENUM.cjs
-./ext_libs/ENUMJS/tst.ENUM.mjs
-./ext_libs/ENUMJS/ENUM.cjs
-
-
-
+/.config
+/.git
+/.vscode
+/node_modules
 
 .gitignore
+package-lock.json
+
+.replit
+replit.nix
