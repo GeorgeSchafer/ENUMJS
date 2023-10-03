@@ -1,5 +1,5 @@
-import ENUM from '../ENUM.mjs'
 import {expect, assert} from 'chai'
+import ENUM from '../ENUM.mjs'
 
 
 
@@ -8,7 +8,6 @@ let counter = 1;
 describe(`ENUM.mjs`, () => {
     describe(`Constructor`, () => {
         it(`Test ${counter}: Initial Value`, () => {
-            // Expectations
             const value = 'GENUS';
             const en = new ENUM(value)
 
@@ -18,12 +17,11 @@ describe(`ENUM.mjs`, () => {
     })
 
     describe(`Class Methods`, () => {
-        // Expectations
         const value = 'genus';
         const en = new ENUM(value)
 
         en.setKey('type')
-        en.setKeys(['kind','variety'])
+        en.setKeys(['kInD','VARIETY'])
 
         it(`Test ${counter}: ENUM.setKey(keyString)`, () => {
             expect(en.TYPE).to.be.false;
@@ -47,12 +45,20 @@ describe(`ENUM.mjs`, () => {
         counter++;
 
         it(`Test ${counter}: ENUM.toString()`, () => {
-            console.log(en.toString())
+            const string = 
+                `ENUM {\n` +
+                `    {GENUS: false},\n` +
+                `    {TYPE: false},\n` +
+                `    {KIND: true},\n` +
+                `    {VARIETY: false}\n` +
+                `}`
+
+            expect(en.toString()).to.equal(string)
         })
         counter++;
         
         it(`Test ${counter}: ENUM.valueOf()`, () => {
-            console.log(en.valueOf())
+            expect(en.valueOf()).to.equal('KIND')
         })
         counter++;
         
