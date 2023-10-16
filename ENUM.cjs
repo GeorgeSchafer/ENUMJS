@@ -5,32 +5,32 @@
 
 module.exports = class ENUM {
 
-    constructor( keyStr ) { // { 'genus': boolean }
-        this[keyStr.toUpperCase()] = true;
+    constructor( key ) { 
+        this[filter(key)] = true;
     }
 
-    setKey( keyStr ){
-        this[keyStr.toUpperCase()] = false;
+    setKey( key ){
+        this[filter(key)] = false;
     }
 
-    setKeys( keyStrArray ){
-        keyStrArray.forEach( (string) => {
-            this[string.toUpperCase()] = false;
+    setKeys( keyArray ){
+        keyArray.forEach( (key) => {
+            this[filter(key)] = false;
         } )
     }
 
-    selectKey( keyStr ){
+    selectKey( key ){
         const keys = Object.keys(this)
-        keyStr = keyStr.toUpperCase()
+        key = filter(key)
 
-        if(this[keyStr] != true && this[keyStr] != false){
+        if(this[key] != true && this[key] != false){
             throw new Error("InvalidKey Error: specified key is not present")
         } else {
-            keys.forEach( (key) => {
-                this[key] = false;
+            keys.forEach( (element) => {
+                this[element] = false;
             } )
 
-            this[keyStr] = true;
+            this[key] = true;
         }
     }
 
@@ -49,7 +49,7 @@ module.exports = class ENUM {
             } else {
                 result += `    {${key}: ${this[key]}},\n`;
             }
-            
+
             index++;
         })
 
@@ -65,4 +65,11 @@ module.exports = class ENUM {
         }
     }
 
+}
+
+function filter(key){
+    if(typeof key == 'string'){
+        key = key.toUpperCase()
+    }
+    return key;
 }
