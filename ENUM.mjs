@@ -36,6 +36,13 @@ export default class ENUM {
     }
 
     toString(){
+        const keyValuePairs = Object.keys(this).map({key:value} => {
+            `{${key}: ${value}}`
+        })
+        return `ENUM {\n    ${keyValuePairs.join(',\n    ')}\n}`
+    }
+    /*
+    toString(){
         const keys = Object.keys(this)
         let result = '';
         let index = 0;
@@ -56,6 +63,7 @@ export default class ENUM {
 
         return result;
     }
+    */
 
     valueOf(){
         let array = Object.keys(this);
