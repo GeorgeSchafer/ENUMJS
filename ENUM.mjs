@@ -7,22 +7,22 @@
 export default class ENUM {
 
     constructor( key ) { 
-        this[filter(key)] = true;
+        this[ensureUppercase(key)] = true;
     }
 
     setKey( key ){
-        this[filter(key)] = false;
+        this[ensureUppercase(key)] = false;
     }
 
     setKeys( keyArray ){
         keyArray.forEach( (key) => {
-            this[filter(key)] = false;
+            this[ensureUppercase(key)] = false;
         } )
     }
 
     selectKey( key ){
         const keys = Object.keys(this)
-        key = filter(key)
+        key = ensureUppercase(key)
 
         if(this[key] != true && this[key] != false){
             throw new Error("InvalidKey Error: specified key is not present")
@@ -51,7 +51,7 @@ export default class ENUM {
 
 }
 
-function filter(key){
+function ensureUppercase(key){
     if(typeof key == 'string'){
         key = key.toUpperCase()
     }
