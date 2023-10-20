@@ -4,6 +4,7 @@
 /node_modules
 
 .gitignore
+.gitmodule
 package-lock.json
 
 .replit
