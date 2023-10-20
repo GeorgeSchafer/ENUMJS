@@ -20,7 +20,7 @@ export default class ENUM {
     const keys = Object.keys(this);
     key = ensureUppercase(key);
 
-    if (this[key] != true && this[key] != false) {
+    if (typeof key === 'boolean') {
       throw new Error("InvalidKey Error: specified key is not present");
     } else {
       keys.forEach((element) => {
