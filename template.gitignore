@@ -4,7 +4,10 @@
 /node_modules
 
 .gitignore
-package-lock.json
+.prettierignore
 
-.replit
 replit.nix
+/.upm
+/node_modules
+package-lock.json
+.replit
