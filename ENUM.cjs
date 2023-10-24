@@ -1,13 +1,16 @@
 // require syntax
 // DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
 
-module.exports = class ENUM {
-    constructor(key){
-        this.booleans = {};
-        key = ensureUppercase(key);
+module.exports = class Enum {
+    constructor(keyArray){
 
-        const ENUM = this.booleans;
-        ENUM[key] = true;
+        if(Array.isArray(keyArray)){
+            this.booleans = {};
+            this.addKeys(keyArray);
+            this.select(keyArray[0]);    
+        } else {
+            throw new InvalidInputError(keyArray);
+        }
     }
 
     addKey(key){
@@ -22,14 +25,14 @@ module.exports = class ENUM {
         })
     }
 
-    selectKey(key){
+    select(key){
         key = ensureUppercase(key);
 
         const ENUM = this.booleans;
 
         Object.keys(ENUM).forEach(key => {
             ENUM[key] = false;
-        })
+        });
 
         ENUM[key] = true;
     }
@@ -37,7 +40,7 @@ module.exports = class ENUM {
     valueOf(){
         const ENUM = this.booleans;
         
-        return Object.keys(ENUM).find(key => ENUM[key])
+        return Object.keys(ENUM).find(key => ENUM[key]);
     }
 
     toString(fancy=false){
@@ -45,10 +48,16 @@ module.exports = class ENUM {
         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
         if(fancy){
-            return `ENUM {\n    ${keyValuePairs.join(',\n    ')}\n}`;
+            return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
         } else {
-            return `ENUM {${keyValuePairs.join(',')}}`;
+            return `Enum {${keyValuePairs.join(',')}}`;
         }
+    }
+}
+
+class InvalidInputError extends Error {
+    constructor(invalidArray){
+        throw new Error(`Enum declaration expected an array of keys, instead received: ${invalidArray}`)
     }
 }
 

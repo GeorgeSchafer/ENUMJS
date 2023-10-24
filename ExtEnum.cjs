@@ -4,9 +4,9 @@
  *      which allows users to associate values with their ENUM definitions.
  */
 
-const ENUM = require('./ENUM.cjs')
+const Enum = require('./Enum.cjs')
 
-module.exports = class EENUM extends ENUM {
+module.exports = class ExtEnum extends Enum {
     constructor(obj) { // obj = { key: value }
         let key = Object.keys(obj)[0];
         const value = obj[key];
@@ -24,18 +24,16 @@ module.exports = class EENUM extends ENUM {
         this.map[key] = keyValuePair.key;
     }
 
-    addKeys(keyValuePairArray) {
-
-    }
-
     valueOf(){
         const ENUM = this.booleans;
         const map = this.map;
-        Object.keys(ENUM).find(key => {
+        let result = {};
+        result = Object.keys(ENUM).find(key => {
             const value = {};
             value[key] = map[key];
             return value;
-        })
+        });
+        return result;
     }
 }
 
