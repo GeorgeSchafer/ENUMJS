@@ -1,70 +1,101 @@
-const chai = require("chai"),
+const chai = require('chai'),
     expect = chai.expect;
-const ENUM = require("../ENUM.cjs");
+const ENUM = require('../ENUM.cjs');
+const EENUM = require('../EENUM.cjs');
 
 let counter = 1;
 
 describe(`ENUM.cjs`, () => {
-    describe(`Constructor`, () => {
-        it(`Test ${counter}: Initial Value`, () => {
-            const value = "GENUS";
-            const en = new ENUM(value);
+    describe('ENUM', () => {
+        describe(`Constructor`, () => {
+            it(`Test ${counter}: Initial Value`, () => {
+                const value = 'RED';
+                const color = new ENUM(value);
 
-            expect(en.GENUS).to.be.true;
+                expect(color.RED).to.be.true;
+            });
+            counter++;
         });
-        counter++;
+
+        describe(`Class Methods`, () => {
+            const value = 'RED';
+            const color = new ENUM(value);
+
+            color.addKey('PUrplE');
+            color.addKeys(['OrAnGe', 'BLUE']);
+
+            it(`Test ${counter}: ENUM.addKey(keyString)`, () => {
+                expect(color.PURPLE).to.be.false;
+            });
+            counter++;
+
+            it(`Test ${counter}: ENUM.addKeys([strings])`, () => {
+                expect(color.ORANGE).to.be.false;
+                expect(color.BLUE).to.be.false;
+            });
+            counter++;
+
+            it(`Test ${counter}: ENUM.selectKey(string)`, () => {
+                color.selectKey('ORANGE');
+
+                expect(color.RED).to.be.false;
+                expect(color.PURPLE).to.be.false;
+                expect(color.ORANGE).to.be.true;
+                expect(color.BLUE).to.be.false;
+            });
+            counter++;
+
+            it(`Test ${counter}: ENUM.toString()`, () => {
+                const string1 =
+                    `ENUM {\n` +
+                    `    {RED: false},\n` +
+                    `    {PURPLE: false},\n` +
+                    `    {ORANGE: true},\n` +
+                    `    {BLUE: false}\n` +
+                    `}`;
+                const string2 = `ENUM {{RED: false},{PURPLE: false},{ORANGE: true},{BLUE: false}}`;
+
+                expect(color.toString(true)).to.equal(string1);
+                expect(color.toString()).to.equal(string2);
+                expect(color.toString(false)).to.equal(string2);
+            });
+            counter++;
+
+            it(`Test ${counter}: ENUM.valueOf()`, () => {
+                expect(color.valueOf()).to.equal('ORANGE');
+            });
+            counter++;
+        });
     });
 
-    describe(`Class Methods`, () => {
-        const value = "genus";
-        const en = new ENUM(value);
+    describe(`Extended ENUM`, () => {
+        describe(`Constructor`, () => {
+            const colors = new EENUM({ 'RED': '#F00' })
 
-        en.addKey("type");
-        en.addKeys(["kInD", "VARIETY"]);
+            it(`Initial key-boolean pair`, () => {
+                // Expectations
+                console.log('colors =', colors)
+                expect(colors.RED).to.be.true;
+            });
+            counter++;
 
-        it(`Test ${counter}: ENUM.addKey(keyString)`, () => {
-            expect(en.TYPE).to.be.false;
-        });
-        counter++;
+            it(`Initial key-value pair`, () => {
+                // Expectations
+                expect(colors.valueOf()).to.equal('#F00');
+            });
+            counter++;
+        })
 
-        it(`Test ${counter}: ENUM.addKeys([strings])`, () => {
-            expect(en.KIND).to.be.false;
-            expect(en.VARIETY).to.be.false;
-        });
-        counter++;
+        describe(`Class methods`, () => {
+            it(`SUMMARY`, () => {
+                // Expectations
+            })
+            counter++;
 
-        it(`Test ${counter}: ENUM.selectKey(string)`, () => {
-            en.selectKey("kind");
+        })
+    })
+})
 
-            expect(en.GENUS).to.be.false;
-            expect(en.TYPE).to.be.false;
-            expect(en.KIND).to.be.true;
-            expect(en.VARIETY).to.be.false;
-        });
-        counter++;
-
-        it(`Test ${counter}: ENUM.toString()`, () => {
-            const string1 =
-                `ENUM {\n` +
-                `    {GENUS: false},\n` +
-                `    {TYPE: false},\n` +
-                `    {KIND: true},\n` +
-                `    {VARIETY: false}\n` +
-                `}`;
-            const string2 = `ENUM {{GENUS: false},{TYPE: false},{KIND: true},{VARIETY: false}}`;
-
-            expect(en.toString(true)).to.equal(string1);
-            expect(en.toString()).to.equal(string2);
-            expect(en.toString(false)).to.equal(string2);
-        });
-        counter++;
-
-        it(`Test ${counter}: ENUM.valueOf()`, () => {
-            expect(en.valueOf()).to.equal("KIND");
-        });
-        counter++;
-    });
-});
 
 /**
 describe(`DESCRIPTION`, () => {
