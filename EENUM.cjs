@@ -1,20 +1,21 @@
 const ENUM = require('./ENUM.cjs')
 
 module.exports = class EENUM extends ENUM {
-    constructor(keyValuePair) { // keyValuePair = { key: value }
-        let [key, value] = Object.entries(keyValuePair);
-        super(ensureUppercase(key));
+    constructor(obj) { // obj = { key: value }
+        let key = Object.keys(obj)[0];
+        const value = obj[key];
         key = ensureUppercase(key);
-        this.key = true;
+
+        super(key);
         this.map = {};
         this.map[key] = value;
     }
 
     addKey(keyValuePair) {
-        [this.key, this.value] = Object.entries(keyValuePair);
-        this.key = this.ensureUpperCase(key);
-        this.key = false;
-        this.map[this.key] = this.value;
+        let key = Object.keys(keyValuePair)[0]
+        key = ensureUppercase(key);
+        this[key] = false;
+        this.map[key] = keyValuePair.key;
     }
 
     addKeys(keyValuePairArray) {
@@ -24,7 +25,7 @@ module.exports = class EENUM extends ENUM {
     valueOf() {
         Object.keys(this).forEach(key => {
             if (this[key]) {
-                return map[key];
+                return this.map[key];
             }
         })
     }

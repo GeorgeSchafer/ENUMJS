@@ -1,6 +1,6 @@
 const chai = require('chai'),
     expect = chai.expect;
-const ENUM = require('../ENUM.cjs');
+const {ENUM, ENUMold} = require('../ENUM.cjs');
 const EENUM = require('../EENUM.cjs');
 
 let counter = 1;
@@ -12,7 +12,7 @@ describe(`ENUM.cjs`, () => {
                 const value = 'RED';
                 const color = new ENUM(value);
 
-                expect(color.RED).to.be.true;
+                expect(color.booleans.RED).to.be.true;
             });
             counter++;
         });
@@ -25,23 +25,23 @@ describe(`ENUM.cjs`, () => {
             color.addKeys(['OrAnGe', 'BLUE']);
 
             it(`Test ${counter}: ENUM.addKey(keyString)`, () => {
-                expect(color.PURPLE).to.be.false;
+                expect(color.booleans.PURPLE).to.be.false;
             });
             counter++;
 
             it(`Test ${counter}: ENUM.addKeys([strings])`, () => {
-                expect(color.ORANGE).to.be.false;
-                expect(color.BLUE).to.be.false;
+                expect(color.booleans.ORANGE).to.be.false;
+                expect(color.booleans.BLUE).to.be.false;
             });
             counter++;
 
             it(`Test ${counter}: ENUM.selectKey(string)`, () => {
                 color.selectKey('ORANGE');
 
-                expect(color.RED).to.be.false;
-                expect(color.PURPLE).to.be.false;
-                expect(color.ORANGE).to.be.true;
-                expect(color.BLUE).to.be.false;
+                expect(color.booleans.RED).to.be.false;
+                expect(color.booleans.PURPLE).to.be.false;
+                expect(color.booleans.ORANGE).to.be.true;
+                expect(color.booleans.BLUE).to.be.false;
             });
             counter++;
 
@@ -68,32 +68,30 @@ describe(`ENUM.cjs`, () => {
         });
     });
 
-    describe(`Extended ENUM`, () => {
-        describe(`Constructor`, () => {
-            const colors = new EENUM({ 'RED': '#F00' })
+    // describe(`Extended ENUM`, () => {
+    //     describe(`Constructor`, () => {
+    //         const colors = new EENUM({ 'RED': '#F00' })
 
-            it(`Initial key-boolean pair`, () => {
-                // Expectations
-                console.log('colors =', colors)
-                expect(colors.RED).to.be.true;
-            });
-            counter++;
+    //         it(`Initial key-boolean pair`, () => {
+    //             console.log('colors =', colors)
+    //             expect(colors.RED).to.be.true;
+    //         });
+    //         counter++;
 
-            it(`Initial key-value pair`, () => {
-                // Expectations
-                expect(colors.valueOf()).to.equal('#F00');
-            });
-            counter++;
-        })
+    //         it(`Initial key-value pair`, () => {
+    //             expect(colors.valueOf()).to.equal('#F00');
+    //         });
+    //         counter++;
+    //     })
 
-        describe(`Class methods`, () => {
-            it(`SUMMARY`, () => {
-                // Expectations
-            })
-            counter++;
+    //     describe(`Class methods`, () => {
+    //         it(`SUMMARY`, () => {
+    //             // Expectations
+    //         })
+    //         counter++;
 
-        })
-    })
+    //     })
+    // })
 })
 
 

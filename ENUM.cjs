@@ -2,6 +2,40 @@
 // DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
 
 module.exports = class ENUM {
+    constructor(key){
+        this.booleans = {};
+        key = ensureUppercase(key);
+        this.booleans[key] = true;
+    }
+
+    addKey(key){
+        key = ensureUppercase(key);
+        this.booleans[key] = false;
+    }
+
+    addKeys(keyArray){
+        keyArray.forEach( key => {
+            this.addKey(key);
+        })
+    }
+
+    selectKey(key){
+        key = ensureUppercase(key);
+        Object.keys(this.booleans).forEach(key => {
+
+        })
+    }
+
+    valueOf(){
+        Object.keys(this.booleans).forEach( key => {
+            if(this.booleans[key]){
+                return key;
+            }
+        })
+    }
+}
+
+module.exports = class ENUMold {
     constructor(key) {
         this[ensureUppercase(key)] = true;
     }
