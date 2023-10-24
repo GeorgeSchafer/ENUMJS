@@ -58,3 +58,4 @@ function ensureUppercase(key) {
     } else {
         return key;
     }
+}
