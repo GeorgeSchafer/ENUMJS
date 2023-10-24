@@ -1,5 +1,7 @@
 // Import syntax
 // make changes to this file, then copy them over to the ENUMJS.cjs file
+import { InvalidArrayError } from "./InvalidArrayError.mjs";
+import { ensureUppercase } from "./Utilities.mjs";
 
 export default class Enum {
     constructor(keyArray){
@@ -9,12 +11,13 @@ export default class Enum {
             this.addKeys(keyArray);
             this.select(keyArray[0]);    
         } else {
-            throw new InvalidInputError(keyArray);
+            throw new InvalidArrayError(keyArray);
         }
     }
 
     addKey(key){
         const ENUM = this.booleans;
+        key = key.slice(0);
         key = ensureUppercase(key);
         ENUM[key] = false;
     }
@@ -52,19 +55,5 @@ export default class Enum {
         } else {
             return `Enum {${keyValuePairs.join(',')}}`;
         }
-    }
-}
-
-class InvalidInputError extends Error {
-    constructor(invalidArray){
-        throw new Error(`Enum declaration expected an array of keys, instead received: ${invalidArray}`)
-    }
-}
-
-function ensureUppercase(key) {
-    if (typeof key === "string") {
-        return key.toUpperCase();
-    } else {
-        return key;
     }
 }
