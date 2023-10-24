@@ -5,12 +5,15 @@ module.exports = class ENUM {
     constructor(key){
         this.booleans = {};
         key = ensureUppercase(key);
-        this.booleans[key] = true;
+
+        const ENUM = this.booleans;
+        ENUM[key] = true;
     }
 
     addKey(key){
+        const ENUM = this.booleans;
         key = ensureUppercase(key);
-        this.booleans[key] = false;
+        ENUM[key] = false;
     }
 
     addKeys(keyArray){
@@ -21,69 +24,38 @@ module.exports = class ENUM {
 
     selectKey(key){
         key = ensureUppercase(key);
-        Object.keys(this.booleans).forEach(key => {
 
+        const ENUM = this.booleans;
+
+        Object.keys(ENUM).forEach(key => {
+            ENUM[key] = false;
         })
+
+        ENUM[key] = true;
     }
 
     valueOf(){
-        Object.keys(this.booleans).forEach( key => {
-            if(this.booleans[key]){
-                return key;
-            }
-        })
-    }
-}
-
-module.exports = class ENUMold {
-    constructor(key) {
-        this[ensureUppercase(key)] = true;
+        const ENUM = this.booleans;
+        return Object.keys(ENUM).find(key => ENUM[key])
     }
 
-    addKey(key) {
-        this[ensureUppercase(key)] = false;
-    }
+    toString(fancy=false){
+        const ENUM = this.booleans;
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
-    addKeys(keyArray) {
-        keyArray.forEach((key) => {
-            this[ensureUppercase(key)] = false;
-        });
-    }
-
-    selectKey(key) {
-        const keys = Object.keys(this);
-        key = ensureUppercase(key);
-
-        if (typeof key === "boolean") {
-            throw new Error("InvalidKey Error: specified key is not present");
+        if(fancy){
+            return `ENUM {\n    ${keyValuePairs.join(',\n    ')}\n}`;
         } else {
-            keys.forEach((element) => {
-                this[element] = false;
-            });
-
-            this[key] = true;
+            return `ENUM {${keyValuePairs.join(',')}}`;
         }
-    }
-
-    toString(fancy = false) {
-        const keyValuePairs = Object.keys(this).map(
-            (key) => `{${key}: ${this[key]}}`
-        );
-        if (fancy) {
-            return `ENUM {\n    ${keyValuePairs.join(",\n    ")}\n}`;
-        } else {
-            return `ENUM {${keyValuePairs.join(",")}}`;
-        }
-    }
-
-    valueOf() {
-        return Object.keys(this).find((key) => this[key]);
     }
 }
 
 function ensureUppercase(key) {
-    if (typeof key == "string") {
+    if (typeof key === "string") {
         key = key.toUpperCase();
+        return key;
+    } else {
+        return key;
     }
-    return key;
 }

@@ -1,6 +1,7 @@
 const chai = require('chai'),
     expect = chai.expect;
-const {ENUM, ENUMold} = require('../ENUM.cjs');
+const ENUM = require('../ENUM.cjs');
+const ENUMold = require('../legacy/ENUM.cjs');
 const EENUM = require('../EENUM.cjs');
 
 let counter = 1;
