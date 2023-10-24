@@ -69,30 +69,31 @@ describe(`ENUM.cjs`, () => {
         });
     });
 
-    // describe(`Extended ENUM`, () => {
-    //     describe(`Constructor`, () => {
-    //         const colors = new EENUM({ 'RED': '#F00' })
+    describe(`Extended ENUM`, () => {
+        describe(`Constructor`, () => {
+            const colors = new EENUM({ red: '#F00' })
 
-    //         it(`Initial key-boolean pair`, () => {
-    //             console.log('colors =', colors)
-    //             expect(colors.RED).to.be.true;
-    //         });
-    //         counter++;
+            it(`Initial key-boolean pair`, () => {
+                // console.log('colors =', colors)
+                
+            });
+            counter++;
 
-    //         it(`Initial key-value pair`, () => {
-    //             expect(colors.valueOf()).to.equal('#F00');
-    //         });
-    //         counter++;
-    //     })
+            it(`Initial key-value pair`, () => {
+                // console.log('colors =', colors.valueOf())
+                expect(colors.valueOf()).to.equal({RED: '#F00'});
+            });
+            counter++;
+        })
 
-    //     describe(`Class methods`, () => {
-    //         it(`SUMMARY`, () => {
-    //             // Expectations
-    //         })
-    //         counter++;
+        describe(`Class methods`, () => {
+            it(`SUMMARY`, () => {
+                // Expectations
+            })
+            counter++;
 
-    //     })
-    // })
+        })
+    })
 })
 
 

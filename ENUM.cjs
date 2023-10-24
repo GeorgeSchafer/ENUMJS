@@ -36,6 +36,7 @@ module.exports = class ENUM {
 
     valueOf(){
         const ENUM = this.booleans;
+        
         return Object.keys(ENUM).find(key => ENUM[key])
     }
 
@@ -53,9 +54,13 @@ module.exports = class ENUM {
 
 function ensureUppercase(key) {
     if (typeof key === "string") {
-        key = key.toUpperCase();
-        return key;
+        return key.toUpperCase();
     } else {
         return key;
     }
 }
+
+
+
+
+
