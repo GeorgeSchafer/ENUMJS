@@ -1,6 +1,13 @@
 // require syntax
 // DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
-const { ensureUppercase } = require('./Utilities.cjs')
+
+function ensureUppercase(key) {
+    if (typeof key === "string") {
+        return key.toUpperCase();
+    } else {
+        return key;
+    }
+}
 
 module.exports = class Enum {
     constructor(keyArray){
