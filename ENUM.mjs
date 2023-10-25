@@ -5,7 +5,6 @@ import { ensureUppercase } from "./Utilities.mjs";
 
 export default class Enum {
     constructor(keyArray){
-
         if(Array.isArray(keyArray)){
             this.booleans = {};
             this.addKeys(keyArray);

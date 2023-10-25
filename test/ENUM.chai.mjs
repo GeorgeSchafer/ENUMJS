@@ -65,11 +65,20 @@ describe(`Enum.mjs`, () => {
         describe(`Constructor`, () => {
             const colors = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
 
-            it(`Initial key-value pair`, () => {
-                console.log('colors =', colors.toString())
-                expect(colors.valueOf()).to.equal({RED: '#f00'});
+            it(`Test ${counter}: Initial key-value pair`, () => {
+                expect(colors.valueOf()).to.eql({RED: '#f00'});
             });
             counter++;
+
+
+            it(`Test ${counter}: Selected key-value pair`, () => {
+                colors.select('blue');
+
+                expect(colors.valueOf()).to.eql({BLUE: '#0f0'})    
+            });
+            counter++;
+            console.log('colors.valueOf()', colors.valueOf())
+
         })
 
         describe(`Class methods`, () => {
