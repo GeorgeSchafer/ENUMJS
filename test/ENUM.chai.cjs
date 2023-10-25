@@ -1,6 +1,7 @@
 const chai = require('chai'),
     expect = chai.expect;
 const Enum = require('../Enum.cjs');
+const ExtEnum = require('../ExtEnum.cjs');
 
 let counter = 1;
 
@@ -61,31 +62,34 @@ describe(`Enum.cjs`, () => {
         });
     });
 
-    // describe(`Extended Enum`, () => {
-    //     describe(`Constructor`, () => {
-    //         const colors = new ExtEnum({ red: '#F00' })
+    describe(`Extended Enum`, () => {
+        describe(`Constructor`, () => {
+            const colors = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
 
-    //         it(`Initial key-boolean pair`, () => {
-    //             // console.log('colors =', colors)
-                
-    //         });
-    //         counter++;
+            it(`Test ${counter}: Initial key-value pair`, () => {
+                expect(colors.valueOf()).to.eql({RED: '#f00'});
+            });
+            counter++;
 
-    //         it(`Initial key-value pair`, () => {
-    //             // console.log('colors =', colors.valueOf())
-    //             expect(colors.valueOf()).to.equal({RED: '#F00'});
-    //         });
-    //         counter++;
-    //     })
 
-    //     describe(`Class methods`, () => {
-    //         it(`SUMMARY`, () => {
-    //             // Expectations
-    //         })
-    //         counter++;
+            it(`Test ${counter}: Selected key-value pair`, () => {
+                colors.select('blue');
 
-    //     })
-    // })
+                expect(colors.valueOf()).to.eql({BLUE: '#0f0'})    
+            });
+            counter++;
+            console.log('colors.valueOf()', colors.valueOf())
+
+        })
+
+        describe(`Class methods`, () => {
+            it(`SUMMARY`, () => {
+                // Expectations
+            })
+            counter++;
+
+        })
+    })
 })
 
 
