@@ -1,55 +1,58 @@
 // Import syntax
 // make changes to this file, then copy them over to the ENUMJS.cjs file
+import { InvalidArrayError } from "./InvalidArrayError.mjs";
+import { ensureUppercase } from "./Utilities.mjs";
 
-export default class ENUM {
-    constructor(key) {
-        this[ensureUppercase(key)] = true;
+export default class Enum {
+    constructor(keyArray){
+        if(Array.isArray(keyArray)){
+            this.booleans = {};
+            this.addKeys(keyArray);
+            this.select(keyArray[0]);    
+        } else {
+            throw new InvalidArrayError(keyArray);
+        }
     }
 
-    addKey(key) {
-        this[ensureUppercase(key)] = false;
+    addKey(key){
+        const ENUM = this.booleans;
+        key = key.slice(0);
+        key = ensureUppercase(key);
+        ENUM[key] = false;
     }
 
-    addKeys(keyArray) {
-        keyArray.forEach((key) => {
-            this[ensureUppercase(key)] = false;
-        });
+    addKeys(keyArray){
+        keyArray.forEach( key => {
+            this.addKey(key);
+        })
     }
 
-    selectKey(key) {
-        const keys = Object.keys(this);
+    select(key){
         key = ensureUppercase(key);
 
-        if (typeof key === "boolean") {
-            throw new Error("InvalidKey Error: specified key is not present");
-        } else {
-            keys.forEach((element) => {
-                this[element] = false;
-            });
+        const ENUM = this.booleans;
 
-            this[key] = true;
+        Object.keys(ENUM).forEach(key => {
+            ENUM[key] = false;
+        });
+
+        ENUM[key] = true;
+    }
+
+    valueOf(){
+        const ENUM = this.booleans;
+        
+        return Object.keys(ENUM).find(key => ENUM[key]);
+    }
+
+    toString(fancy=false){
+        const ENUM = this.booleans;
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
+
+        if(fancy){
+            return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
+        } else {
+            return `Enum {${keyValuePairs.join(',')}}`;
         }
     }
-
-    toString(fancy = false) {
-        const keyValuePairs = Object.keys(this).map(
-            (key) => `{${key}: ${this[key]}}`
-        );
-        if (fancy) {
-            return `ENUM {\n    ${keyValuePairs.join(",\n    ")}\n}`;
-        } else {
-            return `ENUM {${keyValuePairs.join(",")}}`;
-        }
-    }
-
-    valueOf() {
-        return Object.keys(this).find((key) => this[key]);
-    }
-}
-
-function ensureUppercase(key) {
-    if (typeof key == "string") {
-        key = key.toUpperCase();
-    }
-    return key;
 }
