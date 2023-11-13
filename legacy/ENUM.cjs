@@ -51,7 +51,8 @@ module.exports = class ENUM {
 
 function ensureUppercase(key) {
     if (typeof key == "string") {
-        key = key.toUpperCase();
+        return key.toUpperCase();
+    } else {
+        return key;
     }
-    return key;
 }
