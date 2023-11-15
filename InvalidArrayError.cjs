@@ -1,3 +1,7 @@
+/**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
+ */
 
 module.exports = class InvalidArrayError extends Error {
     constructor(invalidArray){

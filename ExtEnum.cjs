@@ -1,4 +1,6 @@
 /**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
  * @description
  *      EENUM is an Extended ENUM implementation which creates a parrallel map
  *      which allows users to associate values with their ENUM definitions.

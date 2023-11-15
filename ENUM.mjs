@@ -1,7 +1,17 @@
 // Import syntax
 // make changes to this file, then copy them over to the ENUMJS.cjs file
+
+/**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
+ * 
+ * @description
+ *      Enum is an Enum implementation for Javascript with an optional extended
+ *      Enum subclass.
+ */
+ 
 import { InvalidArrayError } from "./InvalidArrayError.mjs";
-import { ensureUppercase } from "./Utilities.mjs";
+import { ensureUppercase, copyString } from "./Utilities.mjs";
 
 export default class Enum {
     constructor(keyArray){
@@ -16,8 +26,10 @@ export default class Enum {
 
     addKey(key){
         const ENUM = this.booleans;
-        key = key.slice(0);
-        key = ensureUppercase(key);
+        if(typeof key === 'string'){
+            key = copyString(key);
+            key = ensureUppercase(key);
+        }
         ENUM[key] = false;
     }
 

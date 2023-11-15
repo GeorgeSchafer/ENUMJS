@@ -22,4 +22,6 @@ export function splitObjectKeysValues(objArray){
     return data;
 }
 
-
+export function copyString(str){
+    return str.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
+}

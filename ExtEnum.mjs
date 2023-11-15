@@ -1,12 +1,16 @@
 /**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
+ * 
  * @description
- *      ExtEnum is an Enum that refers to extended 
+ *      ExtEnum is an Enum that refers to extended enums which have predefined values that
+ *      also have values associated with them.
  */
 import Enum from './Enum.mjs';
 import { InvalidArrayError } from './InvalidArrayError.mjs';
 import { ensureUppercase, splitObjectKeysValues } from './Utilities.mjs';
 
-export class ExtEnum extends Enum {
+export default class ExtEnum extends Enum {
     constructor(objArray) { // obj = { key: value }
 
         if(Array.isArray(objArray)){
