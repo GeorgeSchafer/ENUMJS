@@ -6,7 +6,7 @@ import Enum from './Enum.mjs';
 import { InvalidArrayError } from './InvalidArrayError.mjs';
 import { ensureUppercase, splitObjectKeysValues } from './Utilities.mjs';
 
-export class ExtEnum extends Enum {
+export default class ExtEnum extends Enum {
     constructor(objArray) { // obj = { key: value }
 
         if(Array.isArray(objArray)){
