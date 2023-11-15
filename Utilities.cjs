@@ -10,7 +10,11 @@ module.exports = function ensureUppercase(key) {
     } else {
         return key;
     }
-}
+};
+
+module.exports = function copyString(str){
+    return str.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
+};
 
 module.exports = function splitObjectKeysValues(objArray){
     const data = {
@@ -25,4 +29,4 @@ module.exports = function splitObjectKeysValues(objArray){
     });
 
     return data;
-}
+};

@@ -1,12 +1,23 @@
 // require syntax
 // DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
 
+/**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
+ */
+
+
+// Utility functions because CJS is being a pain
 function ensureUppercase(key) {
     if (typeof key === "string") {
         return key.toUpperCase();
     } else {
         return key;
     }
+}
+
+function copyString(str){
+    return str.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
 }
 
 module.exports = class Enum {
@@ -22,7 +33,7 @@ module.exports = class Enum {
 
     addKey(key){
         const ENUM = this.booleans;
-        key = key.slice(0); // This is used to create a copy of the string to prevent the key from being modified prematurely.
+        key = key.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
         key = ensureUppercase(key);
         ENUM[key] = false;
     }
