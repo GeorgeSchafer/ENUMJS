@@ -8,12 +8,12 @@
  * @description
  *      Enum is an Enum implementation for Javascript with an optional extended
  *      Enum subclass.
- *///
+ */
  
 import { InvalidArrayError } from "./InvalidArrayError.mjs";
-import { ensureUppercase, copyString } from "./Utilities.mjs";
+import { copyString, ensureUppercase, splitObjectKeysValues } from "./Utilities.mjs";
 
-export default class Enum {
+export class Enum {
     constructor(keyArray){
         if(Array.isArray(keyArray)){
             this.booleans = {};
@@ -64,7 +64,47 @@ export default class Enum {
         if(fancy){
             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
         } else {
-            return `Enum {${keyValuePairs.join(',')}}`;
+            return `Enum {${keyValuePairs.join(',')}}\n`;
         }
+    }
+}
+
+export class ExtEnum extends Enum {
+    constructor(objArray) { // obj = { key: value }
+
+        if(Array.isArray(objArray)){
+            const data = splitObjectKeysValues(objArray);
+            super(data.keys);
+            this.map = {};
+            this.addValues(objArray);
+        } else {
+            throw new InvalidArrayError();
+        }
+
+    }
+
+    addValue(keyValuePair){
+        let key = Object.keys(keyValuePair)[0];
+        let value = Object.values(keyValuePair)[0];
+        key = ensureUppercase(key);
+        this.map[key] = value;
+    }
+
+    addValues(keyValuePairArray){
+        keyValuePairArray.forEach(pair => {
+            this.addValue(pair);
+        })
+    }
+
+    valueOf(){
+        const Enum = this.booleans;
+        const map = this.map;
+        let result = {};
+        Object.keys(Enum).forEach(key => {
+            if(Enum[key]){
+                result[key] = map[key];
+            }
+        });
+        return result;
     }
 }

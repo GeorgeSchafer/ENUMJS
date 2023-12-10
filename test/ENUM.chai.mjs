@@ -1,6 +1,5 @@
 import { expect, assert } from "chai";
-import Enum from "../Enum.mjs";
-import { ExtEnum } from "../ExtEnum.mjs";
+import { Enum, ExtEnum } from "../Enum.mjs";
 
 let counter = 1;
 
@@ -87,6 +86,63 @@ describe(`Enum.mjs`, () => {
             })
             counter++;
 
+        })
+
+        describe(`Extended Enum Subclass`, ()  => {
+            it(`SUMMARY`, () => {
+                // Expectations
+                const types = [
+                    { ARRAY: {'type': 'array'} },
+                    { BOOLEAN: {'type': 'boolean'} },
+                    { FLOAT: {'type': 'float'} },
+                    { INTEGER: {'type': 'integer'} },
+                    { NUMBER: {'type': 'number'} },
+                    { NULL: {'type': 'null'} },
+                    { OBJECT: {'type': 'object'} },
+                    { STRING: {'type': 'string'} }
+                ]
+
+                class SchemaType extends ExtEnum{
+                    constructor(keyValueArray){
+                        super(keyValueArray)
+                    }
+                }
+
+                const array = new SchemaType(types)
+                const boolean = new SchemaType(types)
+                const float = new SchemaType(types)
+                const integer = new SchemaType(types)
+                const number = new SchemaType(types)
+                const nulled = new SchemaType(types)
+                const object = new SchemaType(types)
+                const string = new SchemaType(types)
+
+                array.select('array')
+                boolean.select('boolean')
+                float.select('float')
+                integer.select('integer')
+                number.select('number')
+                nulled.select('null')
+                object.select('object')
+                string.select('string')
+
+                expect(array.toString()).to.eql(`Enum {{ARRAY: true},{BOOLEAN: false},{FLOAT: false},{INTEGER: false},{NUMBER: false},{NULL: false},{OBJECT: false},{STRING: false}}`)
+                // console.log('array:', array.toString(true))
+                expect(array.toString(true)).to.eql(
+                    `Enum {` +
+                    `    {ARRAY: true},` + 
+                    `    {BOOLEAN: false},` +
+                    `    {FLOAT: false},` +
+                    `    {INTEGER: false},` +
+                    `    {NUMBER: false},` +
+                    `    {NULL: false},` +
+                    `    {OBJECT: false},` +
+                    `    {STRING: false}` +
+                    `}`
+                )
+            })
+            counter++;
+            
         })
     })
 })

@@ -4,7 +4,7 @@
 /**
  * © 2023 George Schafer george.reflections@gmail.com
  * MIT License
- *///
+ */
 
 
 // Utility functions because CJS is being a pain
