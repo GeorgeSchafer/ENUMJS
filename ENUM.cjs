@@ -4,7 +4,7 @@
 /**
  * © 2023 George Schafer george.reflections@gmail.com
  * MIT License
- */
+ *///
 
 
 // Utility functions because CJS is being a pain
@@ -33,7 +33,7 @@ module.exports = class Enum {
 
     addKey(key){
         const ENUM = this.booleans;
-        key = key.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
+        key = copyString(key);
         key = ensureUppercase(key);
         ENUM[key] = false;
     }
