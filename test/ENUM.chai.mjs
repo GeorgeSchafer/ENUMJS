@@ -1,6 +1,6 @@
 import { expect, assert } from "chai";
-import Enum from "../Enum.mjs";
-import { ExtEnum } from "../ExtEnum.mjs";
+import { default as Enum, 
+         ExtEnum } from "../Enum.mjs";
 
 let counter = 1;
 
@@ -11,7 +11,8 @@ describe(`Enum.mjs`, () => {
                 const value = ['RED','blue'];
                 const color = new Enum(value);
 
-                expect(color.booleans.RED).to.be.true;
+                // Object inside an object instead of a key-value pair
+                expect(color.booleans.RED).to.be.true; 
             });
             counter++;
         });
@@ -60,7 +61,9 @@ describe(`Enum.mjs`, () => {
             counter++;
         });
     });
+});
 
+describe(`Extended Enum`, () => {
     describe(`Extended Enum`, () => {
         describe(`Constructor`, () => {
             const colors = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
@@ -70,20 +73,26 @@ describe(`Enum.mjs`, () => {
             });
             counter++;
 
-
             it(`Test ${counter}: Selected key-value pair`, () => {
                 colors.select('blue');
 
                 expect(colors.valueOf()).to.eql({BLUE: '#0f0'})    
             });
             counter++;
-            console.log('colors.valueOf()', colors.valueOf())
-
+            console.log('colors.valueOf()', colors.valueOf()) // ExtEnum.valueOf is return undefined
         })
 
         describe(`Class methods`, () => {
-            it(`SUMMARY`, () => {
+            it(`addValue`, () => {
                 // Expectations
+                const types = [ { OBJECT: {'type': 'object'} } ]
+                const str = [ { STRING: {'type': 'string'} } ]
+                const dataSchema = new ExtEnum(types)
+                dataSchema.addValue(str)
+                dataSchema.select('STRING')
+
+                expect(dataSchema.booleans.string).to.be.true;
+
             })
             counter++;
 
