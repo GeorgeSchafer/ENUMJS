@@ -15,8 +15,9 @@ export function splitObjectKeysValues(objArray){
 
     objArray.forEach(obj => {
         const key = Object.keys(obj)[0];
+        const value = Object.values(obj)[0];
         data.keys.push(key)
-        data.values.push(obj.key)
+        data.values.push(value)
     });
 
     return data;
