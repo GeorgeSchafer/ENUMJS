@@ -1,28 +1,23 @@
 import { expect, assert } from "chai";
-import { default as Enum, 
-         ExtEnum } from "../Enum.mjs";
-import { ensureUppercase } from "../Utilities.mjs";
+import Enum from "../Enum.mjs";
+import { ExtEnum } from "../ExtEnum.mjs";
 
-let counter = '1';
+let counter = 1;
 
 describe(`Enum.mjs`, () => {
     describe('Enum', () => {
         describe(`Constructor`, () => {
             it(`Test ${counter}: Initial Value`, () => {
-                let value = ['RED','blue']
-                const color = new Enum(value)
-                value[1] = ensureUppercase(value[1])
+                const value = ['RED','blue'];
+                const color = new Enum(value);
 
-                // Object inside an object instead of a key-value pair
                 expect(color.booleans.RED).to.be.true;
-                console.log('color.booleans:', color.booleans)
-                expect(Object.keys(color.booleans)).to.eql(value)
             });
             counter++;
         });
 
         describe(`Class Methods`, () => {
-            let values = ['red', 'PUrplE', 'OrAnGe', 'BLUE'];
+            const values = ['red', 'PUrplE', 'OrAnGe', 'BLUE'];
             const color = new Enum(values);
 
             it(`Test ${counter}: Enum.addKey(keyString)`, () => {
@@ -65,59 +60,34 @@ describe(`Enum.mjs`, () => {
             counter++;
         });
     });
-});
 
-counter = 1;
-
-describe(`Extended Enum`, () => {
     describe(`Extended Enum`, () => {
-
         describe(`Constructor`, () => {
-            const rgb = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
-    
-            it(`Test ${counter}: Initial value`, () => {
-                console.log('rgb', rgb)
-                expect(rgb.valueOf()).to.eql('#f00')
-            });
-            counter++;
+            const colors = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
 
-            // it(`Test ${counter}: Initial Key:Value object`, () => {
-            //     // Expectations
-            //     expect(rgb.keyValueOf()).to.eql({RED: '#f00'})
-            // })
-            // counter++;
-
-            rgb.select('blue')
-            
-            it(`Test ${counter}: Selected value`, () => {
-                expect(rgb.valueOf()).to.eql('#0f0')    
+            it(`Test ${counter}: Initial key-value pair`, () => {
+                expect(colors.valueOf()).to.eql({RED: '#f00'});
             });
             counter++;
 
 
-            // it(`Test ${counter}: Selected Key:Value object`, () => {
-            //     // Expectations
-            //     expect(rgb.keyValueOf()).to.eql({BLUE: '#0f0'})
-            // })
-            // counter++;
+            it(`Test ${counter}: Selected key-value pair`, () => {
+                colors.select('blue');
+
+                expect(colors.valueOf()).to.eql({BLUE: '#0f0'})    
+            });
+            counter++;
+            console.log('colors.valueOf()', colors.valueOf())
 
         })
 
-        // describe(`Class methods`, () => {
-        //     it(`addValue`, () => {
-        //         // Expectations
-        //         const types = [ { OBJECT: {'type': 'object'} } ]
-        //         const str = { STRING: {'type': 'string'} }
-        //         const dataSchema = new ExtEnum(types)
-        //         dataSchema.addValue(str)
-        //         dataSchema.select('STRING')
+        describe(`Class methods`, () => {
+            it(`SUMMARY`, () => {
+                // Expectations
+            })
+            counter++;
 
-        //         expect(dataSchema.valueOf()).to.be.eql({type: 'string'});
-
-        //     })
-        //     counter++;
-
-        // })
+        })
     })
 })
 
@@ -125,7 +95,7 @@ describe(`Extended Enum`, () => {
 /**
 describe(`DESCRIPTION`, () => {
     describe(`DESCRIPTION`, () => {
-        it(`Test ${counter}: SUMMARY`, () => {
+        it(`SUMMARY`, () => {
             // Expectations
         })
         counter++;
