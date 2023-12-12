@@ -14,8 +14,8 @@ describe(`Enum.mjs`, () => {
                 value[1] = ensureUppercase(value[1])
 
                 // Object inside an object instead of a key-value pair
-                expect(color.booleans.RED).to.be.true;
-                expect(Object.keys(color.booleans)).to.eql(value)
+                expect(color.index.RED).to.be.true;
+                expect(Object.keys(color.index)).to.eql(value)
             });
             counter++;
         });
@@ -25,20 +25,20 @@ describe(`Enum.mjs`, () => {
             const color = new Enum(values);
 
             it(`Test ${counter}: Enum.addKey(keyString)`, () => {
-                expect(color.booleans.RED).to.be.true;
-                expect(color.booleans.PURPLE).to.be.false;
-                expect(color.booleans.ORANGE).to.be.false;
-                expect(color.booleans.BLUE).to.be.false;
+                expect(color.index.RED).to.be.true;
+                expect(color.index.PURPLE).to.be.false;
+                expect(color.index.ORANGE).to.be.false;
+                expect(color.index.BLUE).to.be.false;
             });
             counter++;
 
             it(`Test ${counter}: Enum.selectKey(string)`, () => {
                 color.select('ORANGE');
 
-                expect(color.booleans.RED).to.be.false;
-                expect(color.booleans.PURPLE).to.be.false;
-                expect(color.booleans.ORANGE).to.be.true;
-                expect(color.booleans.BLUE).to.be.false;
+                expect(color.index.RED).to.be.false;
+                expect(color.index.PURPLE).to.be.false;
+                expect(color.index.ORANGE).to.be.true;
+                expect(color.index.BLUE).to.be.false;
             });
             counter++;
 
