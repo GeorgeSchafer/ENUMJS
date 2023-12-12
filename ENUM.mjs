@@ -85,7 +85,7 @@ export class ExtEnum extends Enum {
              *      Find the true key in this.booleans
              *      then use Codex to return the value
              */ 
-            this.codex = {}; 
+            this.codex = {};
             this.addValues(objArray);
         } else {
             throw new InvalidArrayError();
@@ -107,21 +107,34 @@ export class ExtEnum extends Enum {
     }
 
     /**
-     * Colors is an Extended Enum with key-value pairs
-     *      booleans hold the key that has the value as the true value
+     * Colors is an Extended Enum with key-value pairs booleans 
+     *      hold the key that has the value as the true value
      *      codex needs the key:value
      */
-    valueOf(){ // Problem
-        const index = this.booleans;
-        let cipher;
-        const codex = this.codex;
-        cipher = Object.keys(index).forEach( key => {
-            if(index.key){
-                cipher = key;
-            }
-        })
+    valueOf(){ // Problem SOLVED
+        const index = this.booleans; // an array of {key: boolean} objects
+        const keys = Object.keys(index) // 
+        const codex = this.codex;    // an object of key:value pairs
 
-        return codex[cipher];
+        for( let i = 0 ; i < keys.length ; i++){
+            const cipher = keys[i]
+            if(index[cipher]){
+                return codex[cipher]
+            }
+        }
         
     }
+
+    // keyValueOf(){
+    //     const index = this.booleans;
+    //     const keys = Object.keys(index)
+    //     const codex = this.codex;
+
+    //     for( let i = 0 ; i < keys.length ; i++ ){
+    //         const cipher = keys[i]
+    //         if(index[cipher]){
+    //             return codex[cipher]
+    //         }
+    //     }
+    // }
 }
