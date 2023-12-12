@@ -125,16 +125,19 @@ export class ExtEnum extends Enum {
         
     }
 
-    // keyValueOf(){
-    //     const index = this.booleans;
-    //     const keys = Object.keys(index)
-    //     const codex = this.codex;
+    keyValueOf(){
+        const index = this.booleans;
+        const keys = Object.keys(index)
+        const codex = this.codex;
 
-    //     for( let i = 0 ; i < keys.length ; i++ ){
-    //         const cipher = keys[i]
-    //         if(index[cipher]){
-    //             return codex[cipher]
-    //         }
-    //     }
-    // }
+
+        for( let i = 0 ; i < keys.length ; i++ ){
+            const cipher = keys[i]
+            if(index[cipher]){
+                console.log('cipher', cipher)
+                console.log('codex[cipher]', codex[cipher])
+                return {  }
+            }
+        }
+    }
 }

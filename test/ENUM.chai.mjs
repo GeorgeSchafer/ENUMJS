@@ -15,7 +15,6 @@ describe(`Enum.mjs`, () => {
 
                 // Object inside an object instead of a key-value pair
                 expect(color.booleans.RED).to.be.true;
-                console.log('color.booleans:', color.booleans)
                 expect(Object.keys(color.booleans)).to.eql(value)
             });
             counter++;
@@ -71,35 +70,30 @@ counter = 1;
 
 describe(`Extended Enum`, () => {
     describe(`Extended Enum`, () => {
-
         describe(`Constructor`, () => {
             const rgb = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
     
             it(`Test ${counter}: Initial value`, () => {
-                console.log('rgb', rgb)
                 expect(rgb.valueOf()).to.eql('#f00')
             });
             counter++;
 
-            // it(`Test ${counter}: Initial Key:Value object`, () => {
-            //     // Expectations
-            //     expect(rgb.keyValueOf()).to.eql({RED: '#f00'})
-            // })
-            // counter++;
-
-            rgb.select('blue')
+            it(`Test ${counter}: Initial Key:Value object`, () => {
+                expect(rgb.keyValueOf()).to.eql({RED: '#f00'})
+            })
+            counter++;
             
             it(`Test ${counter}: Selected value`, () => {
+                rgb.select('blue')
                 expect(rgb.valueOf()).to.eql('#0f0')    
             });
             counter++;
 
-
-            // it(`Test ${counter}: Selected Key:Value object`, () => {
-            //     // Expectations
-            //     expect(rgb.keyValueOf()).to.eql({BLUE: '#0f0'})
-            // })
-            // counter++;
+            it(`Test ${counter}: Selected Key:Value object`, () => {
+                rgb.select('blue')
+                expect(rgb.keyValueOf()).to.eql({BLUE: '#0f0'})
+            })
+            counter++;
 
         })
 
