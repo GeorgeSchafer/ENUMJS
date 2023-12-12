@@ -1,75 +1,82 @@
-// // require syntax
-// // DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
+// require syntax
+// DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
 
-// /**
-//  * © 2023 George Schafer george.reflections@gmail.com
-//  * MIT License
-//  */
+/**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
+ */
 
 
-// // Utility functions because CJS is being a pain
-// function ensureUppercase(key) {
-//     if (typeof key === "string") {
-//         return key.toUpperCase();
-//     } else {
-//         return key;
-//     }
-// }
+// Utility functions are consolidated here because CommonJS syntax annoys me.
+function ensureUppercase(key) {
+    if (typeof key === "string") {
+        return key.toUpperCase();
+    } else {
+        return key;
+    }
+}
 
-// function copyString(str){
-//     return str.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
-// }
+function copyString(str){
+    return str.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
+}
 
-// module.exports = class Enum {
-//     constructor(keyArray){
-//         if(Array.isArray(keyArray)){
-//             this.booleans = {};
-//             this.addKeys(keyArray);
-//             this.select(keyArray[0]);
-//         } else {
-//             throw new InvalidArrayError(keyArray);
-//         }
-//     }
+module.exports = class Enum {
+    constructor(keyArray){
+        this.index = {};
 
-//     addKey(key){
-//         const ENUM = this.booleans;
-//         key = key.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
-//         key = ensureUppercase(key);
-//         ENUM[key] = false;
-//     }
+        if(Array.isArray(keyArray)){
+            keyArray.forEach(key => {
+                this.addKey(key);
+            })
+            // this.addKeys(keyArray);
+            this.select(keyArray[0]);
+        } else {
+            throw new InvalidArrayError(keyArray);
+        }
+    }
 
-//     addKeys(keyArray){
-//         keyArray.forEach( key => {
-//             this.addKey(key);
-//         })
-//     }
+    addKey(key){
+        const ENUM = this.index;
+        if(typeof key === 'string'){
+            key = copyString(key);
+            key = ensureUppercase(key);
+        }
+        ENUM[key] = false;
+    }
 
-//     select(key){
-//         key = ensureUppercase(key);
+    addKeys(keyArray){
+        keyArray.forEach( key => {
+            this.addKey(key);
+        })
+    }
 
-//         const ENUM = this.booleans;
+    select(key){
+        key = ensureUppercase(key);
 
-//         Object.keys(ENUM).forEach(key => {
-//             ENUM[key] = false;
-//         });
+        const ENUM = this.index;
 
-//         ENUM[key] = true;
-//     }
+        Object.keys(ENUM).forEach(key => {
+            ENUM[key] = false;
+        });
 
-//     valueOf(){
-//         const ENUM = this.booleans;
+        ENUM[key] = true;
+    }
+
+    valueOf(){
+        const ENUM = this.index;
         
-//         return Object.keys(ENUM).find(key => ENUM[key]);
-//     }
+        return Object.keys(ENUM).find(key => ENUM[key]);
+    }
 
-//     toString(fancy=false){
-//         const ENUM = this.booleans;
-//         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
+    toString(fancy=false){
+        const ENUM = this.index;
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
-//         if(fancy){
-//             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
-//         } else {
-//             return `Enum {${keyValuePairs.join(',')}}`;
-//         }
-//     }
-// }
+        if(fancy){
+            return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
+        } else {
+            return `Enum {${keyValuePairs.join(',')}}`;
+        }
+    }
+}
+
