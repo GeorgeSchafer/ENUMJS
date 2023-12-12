@@ -129,14 +129,14 @@ export class ExtEnum extends Enum {
         const index = this.index;
         const keys = Object.keys(index)
         const codex = this.codex;
-
+        let pair = {}
 
         for( let i = 0 ; i < keys.length ; i++ ){
             const cipher = keys[i]
+
             if(index[cipher]){
-                console.log('cipher', cipher)
-                console.log('codex[cipher]', codex[cipher])
-                return {  }
+                pair[cipher] = codex[cipher];
+                return pair ;
             }
         }
     }
