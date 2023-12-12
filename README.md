@@ -8,4 +8,4 @@ There are two implementations that work exactly the same. One uses the CommonJS 
 
 ## Testing
 
-I have included the `/test` folder for my mocha-chai tests to ensure that the core functionality of the project is maintained even if modifications are made. Enjoy. Remove node_modules/
+I have included the `/test` folder for my mocha-chai tests to ensure that the core functionality of the project is maintained even if modifications are made. Enjoy.
