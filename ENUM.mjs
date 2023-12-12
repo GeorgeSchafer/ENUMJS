@@ -15,7 +15,7 @@ import { ensureUppercase, copyString, splitObjectKeysValues } from "./Utilities.
 
 export default class Enum {
     constructor(keyArray){
-        this.booleans = {};
+        this.index = {};
 
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
@@ -29,7 +29,7 @@ export default class Enum {
     }
 
     addKey(key){
-        const ENUM = this.booleans;
+        const ENUM = this.index;
         if(typeof key === 'string'){
             key = copyString(key);
             key = ensureUppercase(key);
@@ -46,7 +46,7 @@ export default class Enum {
     select(key){
         key = ensureUppercase(key);
 
-        const ENUM = this.booleans;
+        const ENUM = this.index;
 
         Object.keys(ENUM).forEach(key => {
             ENUM[key] = false;
@@ -56,13 +56,13 @@ export default class Enum {
     }
 
     valueOf(){
-        const ENUM = this.booleans;
+        const ENUM = this.index;
         
         return Object.keys(ENUM).find(key => ENUM[key]);
     }
 
     toString(fancy=false){
-        const ENUM = this.booleans;
+        const ENUM = this.index;
         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
         if(fancy){
@@ -82,7 +82,7 @@ export class ExtEnum extends Enum {
             /**
              * @var codex
              *      Codex is a glossary of sorts which holds the value of each Enumerated Type
-             *      Find the true key in this.booleans
+             *      Find the true key in this.index
              *      then use Codex to return the value
              */ 
             this.codex = {};
@@ -107,12 +107,12 @@ export class ExtEnum extends Enum {
     }
 
     /**
-     * Colors is an Extended Enum with key-value pairs booleans 
+     * Colors is an Extended Enum with key-value pairs index 
      *      hold the key that has the value as the true value
      *      codex needs the key:value
      */
     valueOf(){ // Problem SOLVED
-        const index = this.booleans; // an array of {key: boolean} objects
+        const index = this.index; // an array of {key: boolean} objects
         const keys = Object.keys(index) // 
         const codex = this.codex;    // an object of key:value pairs
 
@@ -126,7 +126,7 @@ export class ExtEnum extends Enum {
     }
 
     keyValueOf(){
-        const index = this.booleans;
+        const index = this.index;
         const keys = Object.keys(index)
         const codex = this.codex;
 
