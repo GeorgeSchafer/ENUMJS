@@ -140,4 +140,10 @@ export class ExtEnum extends Enum {
             }
         }
     }
+
+    toString(){
+        const cipher = Object.keys(this.keyValueOf())[0];
+
+        return `ExtEnum { ${ cipher }: '${ this.codex[cipher] }' }`
+    }
 }
