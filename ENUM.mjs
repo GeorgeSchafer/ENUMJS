@@ -93,7 +93,7 @@ export class ExtEnum extends Enum {
      * @var codex is a glossary 
      *      which holds the value of each Enumerated 
      *      Type associated with their keys.
-     *      Codex has to be declared within the if block
+     *      Codex has to be declared under super keyword
      *      because the super keyword has to be called in
      *      the same block. In order to perform the 
      *      InvalidArrayError check;
@@ -102,8 +102,8 @@ export class ExtEnum extends Enum {
 
         if(Array.isArray(objArray)){
             const data = splitObjectKeysValues(objArray);
-            this.codex = {};
             super(data.keys);
+            this.codex = {};
             this.addValues(objArray);
         } else {
             throw new InvalidArrayError();
