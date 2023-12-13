@@ -1,13 +1,10 @@
-// Import syntax
-// make changes to this file, then copy them over to the ENUMJS.cjs file
-
 /**
  * © 2023 George Schafer george.reflections@gmail.com
  * MIT License
  * 
  * @description
- *      Enum is an Enum implementation for Javascript with an optional extended
- *      Enum subclass.
+ *      Enum is an Enum implementation for Javascript with an 
+ *      optional Extended Enum (ExtEnum) subclass.
  */
  
 import { InvalidArrayError } from "./InvalidArrayError.mjs";
@@ -15,13 +12,28 @@ import { ensureUppercase, copyString, splitObjectKeysValues } from "./Utilities.
 
 export default class Enum {
     constructor(keyArray){
-        this.index = {};
+        /**
+         * @var keyArray
+         *      an array of strings of possible values. By default, 
+         *      the initial value is decalred the value of the Enum.
+         *      Enum converts strings to upper case.
+         * 
+         * @var index
+         *      Key:boolean pairs that keep track of available and 
+         *      the value of the Enum
+         * 
+         * @method toString takes @var pretty 
+         * is a boolean that determines if the
+         *          resulting string should be human-readable.
+         * 
+         */
+        // 
+        this.index = {}; 
 
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
                 this.addKey(key);
             })
-            // this.addKeys(keyArray);
             this.select(keyArray[0]);
         } else {
             throw new InvalidArrayError(keyArray);
@@ -61,11 +73,11 @@ export default class Enum {
         return Object.keys(ENUM).find(key => ENUM[key]);
     }
 
-    toString(fancy=false){
+    toString(pretty=false){
         const ENUM = this.index;
         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
-        if(fancy){
+        if(pretty){
             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
         } else {
             return `Enum {${keyValuePairs.join(',')}}`;
@@ -74,18 +86,24 @@ export default class Enum {
 }
 
 export class ExtEnum extends Enum {
+    /**
+     * @param {objArray} is an array of key:value objects.
+     *      The keys are passed to the base Enum constructor 
+     *      for the Index while the objArray is set to 
+     * @var codex is a glossary 
+     *      which holds the value of each Enumerated 
+     *      Type associated with their keys.
+     *      Codex has to be declared within the if block
+     *      because the super keyword has to be called in
+     *      the same block. In order to perform the 
+     *      InvalidArrayError check;
+     */
     constructor(objArray) { // obj = { key: value }
 
         if(Array.isArray(objArray)){
             const data = splitObjectKeysValues(objArray);
-            super(data.keys);
-            /**
-             * @var codex
-             *      Codex is a glossary of sorts which holds the value of each Enumerated Type
-             *      Find the true key in this.index
-             *      then use Codex to return the value
-             */ 
             this.codex = {};
+            super(data.keys);
             this.addValues(objArray);
         } else {
             throw new InvalidArrayError();
@@ -106,15 +124,10 @@ export class ExtEnum extends Enum {
         })
     }
 
-    /**
-     * Colors is an Extended Enum with key-value pairs index 
-     *      hold the key that has the value as the true value
-     *      codex needs the key:value
-     */
-    valueOf(){ // Problem SOLVED
-        const index = this.index; // an array of {key: boolean} objects
-        const keys = Object.keys(index) // 
-        const codex = this.codex;    // an object of key:value pairs
+    valueOf(){
+        const index = this.index;
+        const keys = Object.keys(index)
+        const codex = this.codex;
 
         for( let i = 0 ; i < keys.length ; i++){
             const cipher = keys[i]
