@@ -6,7 +6,8 @@
  *      Enum is an Enum implementation for Javascript with an 
  *      optional Extended Enum (ExtEnum) subclass.
  */
- 
+
+'use strict';
 import { InvalidArrayError } from "./InvalidArrayError.mjs";
 import { ensureUppercase, copyString, splitObjectKeysValues } from "./Utilities.mjs";
 
