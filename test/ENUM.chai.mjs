@@ -99,14 +99,17 @@ describe(`Extended Enum`, () => {
 
         it(`Test ${counter}: toString()`, () => {
             // Expectations
-            expect(rgb.toString()).to.eql(`ExtEnum { RED: '#f00' }`)
+            expect(rgb.toString()).to.eql(`ExtEnum "#f00"`)
         })
         counter++;
 
         it(`Test ${counter}: Enum.duplicate()`, () => {
             // Expectations
             const p = rgb;
-            const q = rgb.duplicate();
+            const q = rgb.duplicate()
+            assert.strictEqual(p,rgb)
+            assert.notStrictEqual(q,rgb)
+            expect(q).to.eql(rgb);
 
         })
         counter++;
