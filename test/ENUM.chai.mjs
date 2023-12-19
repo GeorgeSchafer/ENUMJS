@@ -103,6 +103,14 @@ describe(`Extended Enum`, () => {
         })
         counter++;
 
+        it(`Test ${counter}: Enum.duplicate()`, () => {
+            // Expectations
+            const p = rgb;
+            const q = rgb.duplicate();
+
+        })
+        counter++;
+
     });
 
 

@@ -29,41 +29,50 @@ export default class Enum {
          * 
          */
         // 
-        this.index = {}; 
+        this.index = {} 
 
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
-                this.addKey(key);
+                this.addKey(key)
             })
-            this.select(keyArray[0]);
+            this.select(keyArray[0])
         } else {
-            throw new InvalidArrayError(keyArray);
+            throw new InvalidArrayError(keyArray)
         }
     }
 
     addKey(key){
         const ENUM = this.index;
         if(typeof key === 'string'){
-            key = copyString(key);
-            key = ensureUppercase(key);
+            key = copyString(key)
+            key = ensureUppercase(key)
         }
         ENUM[key] = false;
     }
 
     addKeys(keyArray){
         keyArray.forEach( key => {
-            this.addKey(key);
+            this.addKey(key)
         })
     }
 
+    duplicate(){
+        const result = {}
+        Object.keys(this).forEach(key => {
+            result[key] = this[key]
+        })
+
+        return result;
+    }
+
     select(key){
-        key = ensureUppercase(key);
+        key = ensureUppercase(key)
 
         const ENUM = this.index;
 
         Object.keys(ENUM).forEach(key => {
             ENUM[key] = false;
-        });
+        })
 
         ENUM[key] = true;
     }
@@ -71,12 +80,12 @@ export default class Enum {
     valueOf(){
         const ENUM = this.index;
         
-        return Object.keys(ENUM).find(key => ENUM[key]);
+        return Object.keys(ENUM).find(key => ENUM[key])
     }
 
     toString(pretty=false){
         const ENUM = this.index;
-        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` )
 
         if(pretty){
             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
@@ -102,12 +111,12 @@ export class ExtEnum extends Enum {
     constructor(objArray) { // obj = { key: value }
 
         if(Array.isArray(objArray)){
-            const data = splitObjectKeysValues(objArray);
-            super(data.keys);
-            this.codex = {};
-            this.addValues(objArray);
+            const data = splitObjectKeysValues(objArray)
+            super(data.keys)
+            this.codex = {}
+            this.addValues(objArray)
         } else {
-            throw new InvalidArrayError();
+            throw new InvalidArrayError()
         }
 
     }
@@ -115,13 +124,13 @@ export class ExtEnum extends Enum {
     addValue(keyValuePair){
         let key = Object.keys(keyValuePair)[0];
         let value = Object.values(keyValuePair)[0]; // [key] string of color name
-        key = ensureUppercase(key);
+        key = ensureUppercase(key)
         this.codex[key] = value;
     }
 
     addValues(keyValuePairArray){
         keyValuePairArray.forEach(pair => {
-            this.addValue(pair);
+            this.addValue(pair)
         })
     }
 
