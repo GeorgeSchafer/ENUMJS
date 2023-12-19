@@ -58,6 +58,7 @@ export default class Enum {
 
     duplicate(){
         const result = {}
+
         Object.keys(this).forEach(key => {
             result[key] = this[key]
         })
