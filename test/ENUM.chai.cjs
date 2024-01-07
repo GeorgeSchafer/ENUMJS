@@ -103,7 +103,7 @@ describe(`Enum.cjs`, () => {
 /**
 describe(`DESCRIPTION`, () => {
     describe(`DESCRIPTION`, () => {
-        it(`Test ${counter}: SUMMARY`, () => {
+
         it(`Test ${counter}: SUMMARY`, () => {
             // Expectations
         })

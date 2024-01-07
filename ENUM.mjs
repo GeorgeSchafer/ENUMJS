@@ -39,6 +39,18 @@ export default class Enum {
         })
     }
 
+    select(key){
+        key = ensureUppercase(key)
+
+        const ENUM = this.index;
+
+        Object.keys(ENUM).forEach(key => {
+            ENUM[key] = false;
+        })
+
+        ENUM[key] = true;
+    }
+
     duplicate(){
         const result = {}
 
@@ -57,7 +69,7 @@ export default class Enum {
         return Object.keys(ENUM).find(key => ENUM[key])
     }
 
-    toString(fancy=false){
+    toString(pretty=false){
         const ENUM = this.index;
         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
