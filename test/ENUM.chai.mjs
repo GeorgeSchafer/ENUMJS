@@ -1,8 +1,9 @@
 import { expect, assert } from "chai";
 import { default as Enum, 
          ExtEnum } from "../Enum.mjs";
+import { ensureUppercase } from "../Utilities.mjs";
 
-let counter = 1;
+let counter = '1';
 
 describe(`Enum.mjs`, () => {
     describe('Enum', () => {
@@ -39,15 +40,15 @@ describe(`Enum.mjs`, () => {
             })
             counter++;
 
-            it(`Test ${counter}: Enum.toString()`, () => {
-                const string1 =
-                    `Enum {\n` +
-                    `    {RED: false},\n` +
-                    `    {PURPLE: false},\n` +
-                    `    {ORANGE: true},\n` +
-                    `    {BLUE: false}\n` +
-                    `}`;
-                const string2 = `Enum {{RED: false},{PURPLE: false},{ORANGE: true},{BLUE: false}}`;
+        it(`Test ${counter}: Enum.toString()`, () => {
+            const string1 =
+                `Enum {\n` +
+                `    {RED: false},\n` +
+                `    {PURPLE: false},\n` +
+                `    {ORANGE: true},\n` +
+                `    {BLUE: false}\n` +
+                `}`;
+            const string2 = `Enum {{RED: false},{PURPLE: false},{ORANGE: true},{BLUE: false}}`;
 
                 expect(color.toString(true)).to.equal(string1)
                 expect(color.toString()).to.equal(string2)
@@ -103,6 +104,7 @@ describe(`Enum.mjs`, () => {
 /**
 describe(`DESCRIPTION`, () => {
     describe(`DESCRIPTION`, () => {
+        it(`Test ${counter}: SUMMARY`, () => {
         it(`Test ${counter}: SUMMARY`, () => {
             // Expectations
         })

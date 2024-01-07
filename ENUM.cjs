@@ -1,75 +1,182 @@
-// // require syntax
-// // DO NOT work on this file directly. Make changes in the ENUM.mjs file, then copy them over
+/**
+ * © 2023 George Schafer george.reflections@gmail.com
+ * MIT License
+ * 
+ * @description
+ *      Enum is an Enum implementation for Javascript with an 
+ *      optional Extended Enum (ExtEnum) subclass.
+ */
 
-// /**
-//  * © 2023 George Schafer george.reflections@gmail.com
-//  * MIT License
-//  */
+'use strict';
+
+const {
+    ensureUppercase,
+    splitObjectKeysValues,
+    copyString
+} = require('./Utilities.cjs')
 
 
-// // Utility functions because CJS is being a pain
-// function ensureUppercase(key) {
-//     if (typeof key === "string") {
-//         return key.toUpperCase();
-//     } else {
-//         return key;
-//     }
-// }
+class Enum {
+    constructor(keyArray){
+        /**
+         * @var keyArray
+         *      an array of strings of possible values. By default, 
+         *      the initial value is decalred the value of the Enum.
+         *      Enum converts strings to upper case.
+         * 
+         * @var index
+         *      Key:boolean pairs that keep track of available and 
+         *      the value of the Enum
+         * 
+         * @method toString takes @var pretty 
+         * is a boolean that determines if the
+         *          resulting string should be human-readable.
+         * 
+         */
+        // 
+        this.index = {} 
 
-// function copyString(str){
-//     return str.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
-// }
+        if(Array.isArray(keyArray)){
+            keyArray.forEach(key => {
+                this.addKey(key)
+            })
+            this.select(keyArray[0])
+        } else {
+            throw new InvalidArrayError(keyArray)
+        }
+    }
 
-// module.exports = class Enum {
-//     constructor(keyArray){
-//         if(Array.isArray(keyArray)){
-//             this.booleans = {};
-//             this.addKeys(keyArray);
-//             this.select(keyArray[0]);
-//         } else {
-//             throw new InvalidArrayError(keyArray);
-//         }
-//     }
+    addKey(key){
+        const ENUM = this.index;
+        if(typeof key === 'string'){
+            key = copyString(key)
+            key = ensureUppercase(key)
+        }
+        ENUM[key] = false;
+    }
 
-//     addKey(key){
-//         const ENUM = this.booleans;
-//         key = key.substring(0); // This is used to create a copy of the string to prevent the key from being modified prematurely and avoid using the string object wrapper.
-//         key = ensureUppercase(key);
-//         ENUM[key] = false;
-//     }
+    addKeys(keyArray){
+        keyArray.forEach( key => {
+            this.addKey(key)
+        })
+    }
 
-//     addKeys(keyArray){
-//         keyArray.forEach( key => {
-//             this.addKey(key);
-//         })
-//     }
+    duplicate(){
+        const result = {}
 
-//     select(key){
-//         key = ensureUppercase(key);
+        Object.keys(this).forEach(key => {
+            result[key] = this[key]
+        })
 
-//         const ENUM = this.booleans;
+        return result;
+    }
 
-//         Object.keys(ENUM).forEach(key => {
-//             ENUM[key] = false;
-//         });
+    select(key){
+        key = ensureUppercase(key)
 
-//         ENUM[key] = true;
-//     }
+        const ENUM = this.index;
 
-//     valueOf(){
-//         const ENUM = this.booleans;
+        Object.keys(ENUM).forEach(key => {
+            ENUM[key] = false;
+        })
+
+        ENUM[key] = true;
+    }
+
+    valueOf(){
+        const ENUM = this.index;
         
-//         return Object.keys(ENUM).find(key => ENUM[key]);
-//     }
+        return Object.keys(ENUM).find(key => ENUM[key])
+    }
 
-//     toString(fancy=false){
-//         const ENUM = this.booleans;
-//         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
+    toString(pretty=false){
+        const ENUM = this.index;
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` )
 
-//         if(fancy){
-//             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
-//         } else {
-//             return `Enum {${keyValuePairs.join(',')}}`;
-//         }
-//     }
-// }
+        if(pretty){
+            return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
+        } else {
+            return `Enum {${keyValuePairs.join(',')}}`;
+        }
+    }
+}
+
+class ExtEnum extends Enum {
+    /**
+     * @param {objArray} is an array of key:value objects.
+     *      The keys are passed to the base Enum constructor 
+     *      for the Index while the objArray is set to 
+     * @var codex is a glossary 
+     *      which holds the value of each Enumerated 
+     *      Type associated with their keys.
+     *      Codex has to be declared under super keyword
+     *      because the super keyword has to be called in
+     *      the same block. In order to perform the 
+     *      InvalidArrayError check;
+     */
+    constructor(objArray) { // obj = { key: value }
+
+        if(Array.isArray(objArray)){
+            const data = splitObjectKeysValues(objArray)
+            super(data.keys)
+            this.codex = {}
+            this.addValues(objArray)
+        } else {
+            throw new InvalidArrayError()
+        }
+
+    }
+
+    addValue(keyValuePair){
+        let key = Object.keys(keyValuePair)[0];
+        let value = Object.values(keyValuePair)[0]; // [key] string of color name
+        key = ensureUppercase(key)
+        this.codex[key] = value;
+    }
+
+    addValues(keyValuePairArray){
+        keyValuePairArray.forEach(pair => {
+            this.addValue(pair)
+        })
+    }
+
+    valueOf(){
+        const index = this.index;
+        const keys = Object.keys(index)
+        const codex = this.codex;
+
+        for( let i = 0 ; i < keys.length ; i++){
+            const cipher = keys[i]
+            if(index[cipher]){
+                return codex[cipher]
+            }
+        }
+        
+    }
+
+    keyValueOf(){
+        const index = this.index;
+        const keys = Object.keys(index)
+        const codex = this.codex;
+        let pair = {}
+
+        for( let i = 0 ; i < keys.length ; i++ ){
+            const cipher = keys[i]
+
+            if(index[cipher]){
+                pair[cipher] = codex[cipher];
+                return pair ;
+            }
+        }
+    }
+
+    toString(){ 
+        return `ExtEnum ${JSON.stringify(this.valueOf())}`
+    }
+}
+
+
+module.exports = {
+    Enum,
+    ExtEnum
+}
