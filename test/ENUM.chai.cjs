@@ -15,6 +15,12 @@ describe(`Enum.cjs`, () => {
                 expect(color.index.RED).to.be.true; 
             })
             counter++;
+
+            it(`Test ${counter}: Throws Invalid Array Error`, () => {
+                const invalidArray = {'a': false, 'b': true}
+                expect(() => new Enum(invalidArray)).to.throw(TypeError);
+            })
+            counter++;
         })
 
         describe(`Class Methods`, () => {

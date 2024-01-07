@@ -1,4 +1,4 @@
-import { expect, assert } from "chai";
+import { expect, should } from "chai";
 import { default as Enum, 
          ExtEnum } from "../Enum.mjs";
 import { ensureUppercase } from "../Utilities.mjs";
@@ -12,10 +12,17 @@ describe(`Enum.mjs`, () => {
                 const value = ['RED','blue'];
                 const color = new Enum(value)
 
-                // Object inside an object instead of a key-value pair
                 expect(color.index.RED).to.be.true; 
             })
             counter++;
+
+            it(`Test ${counter}: Throws Invalid Array Error`, () => {
+                const invalidArray = {'a': false, 'b': true}
+                expect(() => new Enum(invalidArray)).to.throw(TypeError);
+            })
+            counter++;
+    
+
         })
 
         describe(`Class Methods`, () => {
@@ -104,7 +111,6 @@ describe(`Enum.mjs`, () => {
 /**
 describe(`DESCRIPTION`, () => {
     describe(`DESCRIPTION`, () => {
-        it(`Test ${counter}: SUMMARY`, () => {
         it(`Test ${counter}: SUMMARY`, () => {
             // Expectations
         })

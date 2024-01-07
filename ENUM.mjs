@@ -171,8 +171,8 @@ export class ExtEnum extends Enum {
     }
 }
 
-class InvalidArrayError extends Error {
+class InvalidArrayError {
     constructor(invalidArray){
-        throw new Error(`Enum declaration expected an array of keys, instead received: ${invalidArray}`)
+        throw new TypeError(`Enum declaration expected an array of keys, instead received: ${typeof invalidArray}`)
     }
 }
