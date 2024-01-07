@@ -180,7 +180,10 @@ class ExtEnum extends Enum {
 
 class InvalidArrayError {
     constructor(invalidArray){
-        throw new TypeError(`Enum declaration expected an array of keys, instead received: ${typeof invalidArray}`)
+        throw new TypeError(
+            `Enum declaration expected an array of keys, instead received: ${typeof invalidArray}`
+            
+        )
     }
 }
 
