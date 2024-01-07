@@ -7,7 +7,6 @@
  *      optional Extended Enum (ExtEnum) subclass.
  */
  
-import { InvalidArrayError } from './InvalidArrayError.mjs';
 import { ensureUppercase, copyString, splitObjectKeysValues } from './Utilities.mjs';
 
 export default class Enum {
@@ -169,5 +168,11 @@ export class ExtEnum extends Enum {
 
     toString(){ 
         return `ExtEnum ${JSON.stringify(this.valueOf())}`
+    }
+}
+
+class InvalidArrayError extends Error {
+    constructor(invalidArray){
+        throw new Error(`Enum declaration expected an array of keys, instead received: ${invalidArray}`)
     }
 }

@@ -4,17 +4,9 @@
  * 
  * @description
  *      Enum is an Enum implementation for Javascript with an 
- *      optional Extended Enum (ExtEnum) subclass.
+ *      optional Extended Enum (ExtEnum) subclass. This file
+ *      is every 
  */
-
-'use strict';
-
-const {
-    ensureUppercase,
-    splitObjectKeysValues,
-    copyString
-} = require('./Utilities.cjs')
-
 
 class Enum {
     constructor(keyArray){
@@ -88,18 +80,6 @@ class Enum {
 }
 
 class ExtEnum extends Enum {
-    /**
-     * @param {objArray} is an array of key:value objects.
-     *      The keys are passed to the base Enum constructor 
-     *      for the Index while the objArray is set to 
-     * @var codex is a glossary 
-     *      which holds the value of each Enumerated 
-     *      Type associated with their keys.
-     *      Codex has to be declared under super keyword
-     *      because the super keyword has to be called in
-     *      the same block. In order to perform the 
-     *      InvalidArrayError check;
-     */
     constructor(objArray) { // obj = { key: value }
 
         if(Array.isArray(objArray)){
@@ -115,7 +95,7 @@ class ExtEnum extends Enum {
 
     addValue(keyValuePair){
         let key = Object.keys(keyValuePair)[0];
-        let value = Object.values(keyValuePair)[0]; // [key] string of color name
+        let value = Object.values(keyValuePair)[0];
         key = ensureUppercase(key)
         this.codex[key] = value;
     }
@@ -138,11 +118,6 @@ class ExtEnum extends Enum {
         return cipher;
     }
 
-    /**
-     * Colors is an Extended Enum with key-value pairs
-     *      booleans hold the key that has the value as the true value
-     *      codex needs the key:value
-     */
     valueOf(succinct=false){
         if(succinct){
             return this.codex[this.getCipher()]
@@ -184,8 +159,31 @@ class InvalidArrayError extends Error {
     }
 }
 
-
-module.exports = {
-    Enum,
-    ExtEnum
+function ensureUppercase(key){
+    if (typeof key === "string") {
+        return key.toUpperCase();
+    } else {
+        return key;
+    }
 }
+
+function splitObjectKeysValues(objArray){
+    const data = {
+        keys : [],
+        values : []
+    };
+
+    objArray.forEach(obj => {
+        const key = Object.keys(obj)[0];
+        const value = Object.values(obj)[0];
+        data.keys.push(key)
+        data.values.push(value)
+    });
+
+    return data;
+}
+
+function copyString(str){
+    return str.substring(0);
+}
+
