@@ -18,23 +18,7 @@ const {
 
 class Enum {
     constructor(keyArray){
-        /**
-         * @var keyArray
-         *      an array of strings of possible values. By default, 
-         *      the initial value is decalred the value of the Enum.
-         *      Enum converts strings to upper case.
-         * 
-         * @var index
-         *      Key:boolean pairs that keep track of available and 
-         *      the value of the Enum
-         * 
-         * @method toString takes @var pretty 
-         * is a boolean that determines if the
-         *          resulting string should be human-readable.
-         * 
-         */
-        // 
-        this.index = {} 
+        this.index = {};
 
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
@@ -64,16 +48,6 @@ class Enum {
     duplicate(){
         const result = {}
 
-        Object.keys(this).forEach(key => {
-            result[key] = this[key]
-        })
-
-        return result;
-    }
-
-    select(key){
-        key = ensureUppercase(key)
-
         const ENUM = this.index;
 
         Object.keys(ENUM).forEach(key => {
@@ -89,9 +63,9 @@ class Enum {
         return Object.keys(ENUM).find(key => ENUM[key])
     }
 
-    toString(pretty=false){
+    toString(fancy=false){
         const ENUM = this.index;
-        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` )
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
 
         if(pretty){
             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
@@ -140,18 +114,35 @@ class ExtEnum extends Enum {
         })
     }
 
-    valueOf(){
-        const index = this.index;
-        const keys = Object.keys(index)
-        const codex = this.codex;
-
-        for( let i = 0 ; i < keys.length ; i++){
-            const cipher = keys[i]
-            if(index[cipher]){
-                return codex[cipher]
+    getCipher(){
+        const index = Object.keys(this.index);
+        let cipher;
+        index.forEach(i => {
+            if(this.index[i]){
+                cipher = i;
             }
+        })
+
+        return cipher;
+    }
+
+    /**
+     * Colors is an Extended Enum with key-value pairs
+     *      booleans hold the key that has the value as the true value
+     *      codex needs the key:value
+     */
+    valueOf(succinct=false){
+        if(succinct){
+            return this.codex[this.getCipher()]
+        } else {
+            const keyValue = {}
+            for( const [key, value] of Object.entries(this.codex)){
+                if(this.index[key]){
+                    keyValue[key] = value;
+                }
+            }
+            return keyValue;
         }
-        
     }
 
     keyValueOf(){
@@ -174,6 +165,7 @@ class ExtEnum extends Enum {
         return `ExtEnum ${JSON.stringify(this.valueOf())}`
     }
 }
+
 
 
 module.exports = {
