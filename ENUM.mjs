@@ -9,7 +9,7 @@
  
 import { ensureUppercase, copyString, splitObjectKeysValues } from './Utilities.mjs';
 
-export default class Enum {
+class Enum {
     constructor(keyArray){
         this.index = {};
 
@@ -80,21 +80,20 @@ export default class Enum {
     }
 }
 
-export class ExtEnum extends Enum {
-    /**
-     * @param {objArray} is an array of key:value objects.
-     *      The keys are passed to the base Enum constructor 
-     *      for the Index while the objArray is set to 
-     * @var codex is a glossary 
-     *      which holds the value of each Enumerated 
-     *      Type associated with their keys.
-     *      Codex has to be declared under super keyword
-     *      because the super keyword has to be called in
-     *      the same block. In order to perform the 
-     *      InvalidArrayError check;
-     */
+class ExtEnum extends Enum {
     constructor(objArray) { // obj = { key: value }
-
+        /**
+         * @param {objArray} is an array of key:value objects.
+         *      The keys are passed to the base Enum constructor 
+         *      for the Index while the objArray is set to 
+         * @var codex is a glossary 
+         *      which holds the value of each Enumerated 
+         *      Type associated with their keys.
+         *      Codex has to be declared under super keyword
+         *      because the super keyword has to be called in
+         *      the same block. In order to perform the 
+         *      InvalidArrayError check;
+         */
         if(Array.isArray(objArray)){
             const data = splitObjectKeysValues(objArray)
             super(data.keys)
@@ -136,10 +135,8 @@ export class ExtEnum extends Enum {
      *      booleans hold the key that has the value as the true value
      *      codex needs the key:value
      */
-    valueOf(succinct=false){
-        if(succinct){
-            return this.codex[this.getCipher()]
-        } else {
+    valueOf(verbose=false){
+        if(verbose){
             const keyValue = {}
             for( const [key, value] of Object.entries(this.codex)){
                 if(this.index[key]){
@@ -147,27 +144,14 @@ export class ExtEnum extends Enum {
                 }
             }
             return keyValue;
+        } else {
+            const value = this.codex[this.getCipher()]
+            return value
         }
     }
 
-    keyValueOf(){
-        const index = this.index;
-        const keys = Object.keys(index)
-        const codex = this.codex;
-        let pair = {}
-
-        for( let i = 0 ; i < keys.length ; i++ ){
-            const cipher = keys[i]
-
-            if(index[cipher]){
-                pair[cipher] = codex[cipher];
-                return pair ;
-            }
-        }
-    }
-
-    toString(){ 
-        return `ExtEnum ${JSON.stringify(this.valueOf())}`
+    toString(verbose=false){ 
+        return `ExtEnum ${JSON.stringify(this.valueOf(verbose))}`
     }
 }
 
@@ -177,4 +161,9 @@ class InvalidArrayError {
             `Enum declaration expected an array of keys, instead received: ${typeof invalidArray}`
         )
     }
+}
+
+export {
+    Enum,
+    ExtEnum
 }
