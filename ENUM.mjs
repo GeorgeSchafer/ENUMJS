@@ -7,11 +7,15 @@
  *      optional Extended Enum (ExtEnum) subclass.
  */
  
-import { ensureUppercase, copyString, splitObjectKeysValues } from './Utilities.mjs';
+import {
+    ensureUppercase, 
+    copyString, 
+    splitObjectKeysValues
+} from './Utilities.mjs';
 
 class Enum {
     constructor(keyArray){
-        this.index = {};
+        this.index = {}
 
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
@@ -70,7 +74,7 @@ class Enum {
 
     toString(pretty=false){
         const ENUM = this.index;
-        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` );
+        const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` )
 
         if(pretty){
             return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
@@ -106,8 +110,8 @@ class ExtEnum extends Enum {
     }
 
     addValue(keyValuePair){
-        let key = Object.keys(keyValuePair)[0];
-        let value = Object.values(keyValuePair)[0]; // [key] string of color name
+        let key = Object.keys(keyValuePair)[0]
+        let value = Object.values(keyValuePair)[0]
         key = ensureUppercase(key)
         this.codex[key] = value;
     }
@@ -119,7 +123,7 @@ class ExtEnum extends Enum {
     }
 
     getCipher(){
-        const index = Object.keys(this.index);
+        const index = Object.keys(this.index)
         let cipher;
         index.forEach(i => {
             if(this.index[i]){
@@ -130,13 +134,13 @@ class ExtEnum extends Enum {
         return cipher;
     }
 
+    valueOf(verbose=false){
     /**
      * Colors is an Extended Enum with key-value pairs
      *      booleans hold the key that has the value as the true value
      *      codex needs the key:value
      */
-    valueOf(verbose=false){
-        if(verbose){
+    if(verbose){
             const keyValue = {}
             for( const [key, value] of Object.entries(this.codex)){
                 if(this.index[key]){

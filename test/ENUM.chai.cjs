@@ -11,7 +11,6 @@ describe(`Enum.cjs`, () => {
                 const value = ['RED','blue'];
                 const color = new Enum(value)
 
-                // Object inside an object instead of a key-value pair
                 expect(color.index.RED).to.be.true; 
             })
             counter++;
@@ -21,6 +20,8 @@ describe(`Enum.cjs`, () => {
                 expect(() => new Enum(invalidArray)).to.throw(TypeError);
             })
             counter++;
+    
+
         })
 
         describe(`Class Methods`, () => {
@@ -73,32 +74,36 @@ describe(`Enum.cjs`, () => {
         describe(`Constructor`, () => {
             const color = new ExtEnum([{ red: '#f00' }, {blue: '#0f0'}, {green: '#00f'}])
 
-            it(`Test ${counter}: returns valueOf(succinct)`, () => {
-                expect(color.valueOf(true)).to.eql('#f00')
-                expect(color.valueOf(true)).to.not.eql('#00f')
+            it(`Test ${counter}: returns valueOf(verbose)`, () => {
+                expect(color.valueOf()).to.eql('#f00')
+                expect(color.valueOf(true)).to.eql({RED: '#f00'})
+                expect(color.valueOf()).to.not.eql('#00f')
+                expect(color.valueOf(true)).to.not.eql({GREEN: '#f00'})
             })
             counter++;
 
             it(`Test ${counter}: select()`, () => {
                 color.select('green')
-                expect(color.valueOf(true)).to.not.eql('#f00')
-                expect(color.valueOf(true)).to.eql('#00f')
+                expect(color.valueOf()).to.not.eql('#f00')
+                expect(color.valueOf()).to.eql('#00f')
+                expect(color.valueOf(true)).to.not.eql({RED:'#f00'})
+                expect(color.valueOf(true)).to.eql({GREEN:'#00f'})
             })
             counter++;
 
             it(`Test ${counter}: Initial key-value pair`, () => {
                 color.select('red')
-                expect(color.valueOf()).to.eql({RED: '#f00'})
-                expect(color.valueOf()).to.not.eql({BLUE: '#0f0'})
-                expect(color.valueOf()).to.not.eql({GREEN: '#00f'})
+                expect(color.valueOf(true)).to.eql({RED: '#f00'})
+                expect(color.valueOf(true)).to.not.eql({BLUE: '#0f0'})
+                expect(color.valueOf(true)).to.not.eql({GREEN: '#00f'})
             })
             counter++;
 
             it(`Test ${counter}: Selected key-value pair`, () => {
                 color.select('blue')
-                expect(color.valueOf()).to.eql({BLUE: '#0f0'})
-                expect(color.valueOf()).to.not.eql({RED: '#f00'})
-                expect(color.valueOf()).to.not.eql({GREEN: '#00f'})
+                expect(color.valueOf(true)).to.eql({BLUE: '#0f0'})
+                expect(color.valueOf(true)).to.not.eql({RED: '#f00'})
+                expect(color.valueOf(true)).to.not.eql({GREEN: '#00f'})
             })
             counter++;
         })
@@ -109,7 +114,6 @@ describe(`Enum.cjs`, () => {
 /**
 describe(`DESCRIPTION`, () => {
     describe(`DESCRIPTION`, () => {
-
         it(`Test ${counter}: SUMMARY`, () => {
             // Expectations
         })
