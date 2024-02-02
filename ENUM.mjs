@@ -17,12 +17,6 @@ class Enum {
     constructor(keyArray){
         this.index = {}
 
-        this.valueOf = () => {
-            const ENUM = this.index;
-            
-            return Object.keys(ENUM).find(key => ENUM[key])
-        }
-
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
                 this.addKey(key)
@@ -72,7 +66,11 @@ class Enum {
         ENUM[key] = true;
     }
 
-
+    valueOf(){
+        const ENUM = this.index;
+        
+        return Object.keys(ENUM).find(key => ENUM[key])
+    }
 
     toString(pretty=false){
         const ENUM = this.index;
