@@ -66,11 +66,7 @@ class Enum {
         ENUM[key] = true;
     }
 
-    valueOf(){
-        const ENUM = this.index;
-        
-        return Object.keys(ENUM).find(key => ENUM[key])
-    }
+
 
     toString(pretty=false){
         const ENUM = this.index;
@@ -82,6 +78,12 @@ class Enum {
             return `Enum {${keyValuePairs.join(',')}}`;
         }
     }
+}
+
+Enum.valueOf = () => {
+    const ENUM = this.index;
+    
+    return Object.keys(ENUM).find(key => ENUM[key])
 }
 
 class ExtEnum extends Enum {
