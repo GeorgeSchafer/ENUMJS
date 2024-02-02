@@ -17,6 +17,12 @@ class Enum {
     constructor(keyArray){
         this.index = {}
 
+        this.valueOf = () => {
+            const ENUM = this.index;
+            
+            return Object.keys(ENUM).find(key => ENUM[key])
+        }
+
         if(Array.isArray(keyArray)){
             keyArray.forEach(key => {
                 this.addKey(key)
@@ -78,12 +84,6 @@ class Enum {
             return `Enum {${keyValuePairs.join(',')}}`;
         }
     }
-}
-
-Enum.valueOf = () => {
-    const ENUM = this.index;
-    
-    return Object.keys(ENUM).find(key => ENUM[key])
 }
 
 class ExtEnum extends Enum {
