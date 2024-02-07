@@ -72,6 +72,10 @@ class Enum {
         return Object.keys(ENUM).find(key => ENUM[key])
     }
 
+    v(){
+        return this.valueOf()
+    }
+
     toString(pretty=false){
         const ENUM = this.index;
         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` )
@@ -81,6 +85,10 @@ class Enum {
         } else {
             return `Enum {${keyValuePairs.join(',')}}`;
         }
+    }
+
+    s(pretty=false){
+        return this.toString(pretty)
     }
 }
 
