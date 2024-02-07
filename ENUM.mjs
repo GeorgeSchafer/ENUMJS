@@ -134,6 +134,10 @@ class ExtEnum extends Enum {
         return cipher;
     }
 
+    v(verbose=false){
+        return this.valueOf(verbose)
+    }
+
     valueOf(verbose=false){
     /**
      * Colors is an Extended Enum with key-value pairs
