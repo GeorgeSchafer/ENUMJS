@@ -6,14 +6,7 @@
  *      Enum is an Enum implementation for Javascript with an 
  *      optional Extended Enum (ExtEnum) subclass.
  */
-
-'use strict';
-
-const {
-    ensureUppercase,
-    splitObjectKeysValues,
-    copyString
-} = require('./Utilities.cjs')
+ 
 
 
 class Enum {
@@ -31,12 +24,12 @@ class Enum {
     }
 
     addKey(key){
-        const ENUM = this.index;
+        const ENUM = this.index
         if(typeof key === 'string'){
             key = copyString(key)
             key = ensureUppercase(key)
         }
-        ENUM[key] = false;
+        ENUM[key] = false
     }
 
     addKeys(keyArray){
@@ -48,42 +41,50 @@ class Enum {
     select(key){
         key = ensureUppercase(key)
 
-        const ENUM = this.index;
+        const ENUM = this.index
 
         Object.keys(ENUM).forEach(key => {
-            ENUM[key] = false;
+            ENUM[key] = false
         })
 
-        ENUM[key] = true;
+        ENUM[key] = true
     }
 
     duplicate(){
         const result = {}
 
-        const ENUM = this.index;
+        const ENUM = this.index
 
         Object.keys(ENUM).forEach(key => {
-            ENUM[key] = false;
+            ENUM[key] = false
         })
 
-        ENUM[key] = true;
+        ENUM[key] = true
     }
 
     valueOf(){
-        const ENUM = this.index;
+        const ENUM = this.index
         
         return Object.keys(ENUM).find(key => ENUM[key])
     }
 
+    v(){
+        return this.valueOf()
+    }
+
     toString(pretty=false){
-        const ENUM = this.index;
+        const ENUM = this.index
         const keyValuePairs = Object.keys(ENUM).map(key => `{${key}: ${ENUM[key]}}` )
 
         if(pretty){
-            return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`;
+            return `Enum {\n    ${keyValuePairs.join(',\n    ')}\n}`
         } else {
-            return `Enum {${keyValuePairs.join(',')}}`;
+            return `Enum {${keyValuePairs.join(',')}}`
         }
+    }
+
+    s(pretty=false){
+        return this.toString(pretty)
     }
 }
 
@@ -99,7 +100,7 @@ class ExtEnum extends Enum {
          *      Codex has to be declared under super keyword
          *      because the super keyword has to be called in
          *      the same block. In order to perform the 
-         *      InvalidArrayError check;
+         *      InvalidArrayError check
          */
         if(Array.isArray(objArray)){
             const data = splitObjectKeysValues(objArray)
@@ -116,7 +117,7 @@ class ExtEnum extends Enum {
         let key = Object.keys(keyValuePair)[0]
         let value = Object.values(keyValuePair)[0]
         key = ensureUppercase(key)
-        this.codex[key] = value;
+        this.codex[key] = value
     }
 
     addValues(keyValuePairArray){
@@ -127,14 +128,18 @@ class ExtEnum extends Enum {
 
     getCipher(){
         const index = Object.keys(this.index)
-        let cipher;
+        let cipher
         index.forEach(i => {
             if(this.index[i]){
-                cipher = i;
+                cipher = i
             }
         })
 
-        return cipher;
+        return cipher
+    }
+
+    v(verbose=false){
+        return this.valueOf(verbose)
     }
 
     valueOf(verbose=false){
@@ -147,10 +152,10 @@ class ExtEnum extends Enum {
             const keyValue = {}
             for( const [key, value] of Object.entries(this.codex)){
                 if(this.index[key]){
-                    keyValue[key] = value;
+                    keyValue[key] = value
                 }
             }
-            return keyValue;
+            return keyValue
         } else {
             const value = this.codex[this.getCipher()]
             return value
@@ -172,9 +177,9 @@ class InvalidArrayError {
 
 function ensureUppercase(key){
     if (typeof key === "string") {
-        return key.toUpperCase();
+        return key.toUpperCase()
     } else {
-        return key;
+        return key
     }
 }
 
@@ -182,19 +187,26 @@ function splitObjectKeysValues(objArray){
     const data = {
         keys : [],
         values : []
-    };
+    }
 
     objArray.forEach(obj => {
-        const key = Object.keys(obj)[0];
-        const value = Object.values(obj)[0];
+        const key = Object.keys(obj)[0]
+        const value = Object.values(obj)[0]
         data.keys.push(key)
         data.values.push(value)
-    });
+    })
 
-    return data;
+    return data
 }
 
 function copyString(str){
-    return str.substring(0);
+    /**
+     * @function
+     * @summary
+     *      This is used to create a copy of the string to prevent the key from 
+     *      being modified prematurely and avoid using the string object wrapper.
+     * @param str is a string to copy. 
+     * @returns a duplicate of the string.
+     */
+    return str.substring(0)
 }
-
