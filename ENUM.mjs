@@ -181,5 +181,6 @@ class InvalidArrayError {
 
 export {
     Enum,
-    ExtEnum
+    ExtEnum,
+    InvalidArrayError // for testing purposes
 }
