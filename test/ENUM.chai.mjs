@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import {
     Enum, 
-    ExtEnum
+    ExtEnum,
+    ensureUppercase
 } from "../Enum.mjs";
-import { ensureUppercase } from "../Utilities.mjs";
 
 let counter = '1';
 
