@@ -1,6 +1,6 @@
 [submodule "sh"]
 	path = sh
-	url = https://github.com/GeorgeSchafer/KwikGit.git
+	url = https://github.com/jauntyjocularjay/KwikGit
 [submodule "test/chaitests"]
 	path = test/chaitests
 	url = https://www.github.com/jauntyjocularjay/chaitests
